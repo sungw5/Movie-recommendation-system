@@ -15,8 +15,8 @@ $result = mysqli_query($con, $query);
 $count = mysqli_num_rows($result);
 
 if($count == 1) {
-  header("location:homepage.html");
+  header("location:../homepage/homepage.html");
 } else {
-  header("location:login.html");
+  header("location:../login/login.html");
 }
 ?>
