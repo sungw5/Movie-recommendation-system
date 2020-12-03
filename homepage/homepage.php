@@ -34,18 +34,16 @@
     <div class="jumbotron">
       <h1 class="display-4">Welcome</h1>
     </div>
-    <div class="row row-center-justify">
-      <div class="col-lg-10">
-        <form class="form-inline justify-content-center">
-          <input type="search" id="search" value="" class="form-control" placeholder="Search movies">
-        </form>
-      </div>
-    </div><br />
     <div class="container">
-      <div class="row">
-          <div class="col-lg-12">
+        <div class="row">
+          <div class="searchbar col-lg-4 col-lg-offset-4">
+              <input type="search" id="search" value="" class="form-control" placeholder="Search movies">
+          </div>
+        </div><br/>
+        <div class="row">
+          <div class="col-lg-8 mr-4">
               <table class="table" id="table">
-                  <thead>
+                  <thead class="thead-dark">
                       <tr>
                           <th>Movie ID</th>
                           <th>Movie Title</th>
@@ -66,22 +64,47 @@
                   </thead>
               </table>
               <hr>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                </ul>
+              </nav>
           </div>
-      </div>
+          <div class="col-lg-3 ml-5">
+                <h3>Update Request</h3>
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="req-movie">Movie Name</label>
+                        <input type="text" name="movie_name" class="form-control" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="req-total-gross">Total Gross</label>
+                        <input type="number" name="total_gross" class="form-control" placeholder="Enter total gross">
+                    </div>
+                    <div class="form-group">
+                        <label for="req-duration">Duration</label>
+                        <input type="text" name="duration" class="form-control" placeholder="Enter duration">
+                    </div>
+                    <div class="form-group">
+                        <label for="req-release">Release</label>
+                        <input type="text" name="release" class="form-control" placeholder="Enter release">
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" name="submit" class="update-req-btn btn btn-dark">Submit</button>
+                    </div> 
+                </form>
+          </div>
+        </div>
     </div>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>
