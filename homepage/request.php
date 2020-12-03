@@ -20,16 +20,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="homepage.php">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="../homepage/favorites.html">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="favorites.html">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="request.php">Update <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -45,38 +42,35 @@
     <div class="jumbotron">
       <h1 class="display-4">Welcome</h1>
     </div>
-    <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mr-4">
-              <table class="table table-striped" id="id-table">
-                  <thead class="thead-dark">
-                      <tr>
-                          <th>Movie ID</th>
-                          <th>Movie Title</th>
-                          <th>Duration</th>
-                      </tr>
-                      <tbody>
-                      <?php
-                        // Add CREATE TABLE commands and use JOIN statements to produce the desired columns
-                        $results = $con -> query("SELECT movie_id, movie_name, running_time FROM movie_summary");
-                        while ($row = mysqli_fetch_array($results)) {?>
-                          <tr>
-                              <td><?php echo $row["movie_id"]; ?></td>
-                              <td><?php echo $row["movie_name"]; ?></td>
-                              <td><?php echo $row["running_time"]; ?></td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                  </thead>
-              </table>
-          </div>
+        <div class="row justify-content-center align-items-center">
+          <h3>Update Request</h3>
         </div>
+        <br />
+      <div class="row justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-6">
+          <form action="process.php" method="POST">
+              <div class="form-group">
+                  <label for="req-movie">Movie Name</label>
+                  <input type="text" name="movie_title" class="form-control" placeholder="Enter movie name">
+              </div>
+              <div class="form-group">
+                  <label for="req-total-gross">Total Gross</label>
+                  <input type="number" name="total_gross" class="form-control" placeholder="Enter total gross">
+              </div>
+              <div class="form-group">
+                  <label for="req-duration">Duration</label>
+                  <input type="text" name="running_time" class="form-control" placeholder="Enter duration">
+              </div>
+              <div class="form-group">
+                  <label for="req-release">Release</label>
+                  <input type="text" name="release_date" class="form-control" placeholder="Enter release year">
+              </div>
+              <div class="form-group row justify-content-center align-items-center">
+                  <button type="submit" name="submit" class="update-req-btn btn btn-dark">Submit</button>
+              </div> 
+          </form>
+      </div>
+      </div>
     </div>
-
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $("#id-table").DataTable();
-      });
-    </script>
   </body>
 </html>
