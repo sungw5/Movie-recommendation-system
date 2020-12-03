@@ -53,7 +53,7 @@
         </div><br/>
         <div class="row">
           <div class="col-lg-8 mr-4">
-              <table class="table" id="id-table">
+              <table class="table table-striped" id="id-table">
                   <thead class="thead-dark">
                       <tr>
                           <th>Movie ID</th>
