@@ -40,40 +40,48 @@
           <input type="search" id="search" value="" class="form-control" placeholder="Search movies">
         </form>
       </div>
-    </div><br /><br />
-    <div class="bg-light d-flex justify-content-between">
+    </div><br />
     <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table" id="table">
-                        <thead>
+      <div class="row">
+          <div class="col-lg-12">
+              <table class="table" id="table">
+                  <thead>
+                      <tr>
+                          <th>Movie ID</th>
+                          <th>Movie Title</th>
+                          <th>Duration</th>
+                      </tr>
+                      <tbody>
+                      <?php
+                          $SQL = "SELECT movie_id, movie_name, running_time FROM movie_summary LIMIT 10";
+                          $result = $con -> query($SQL);
+                          while ($row = $result->fetch_assoc()) { ?>
                             <tr>
-                                <th>Movie ID</th>
-                                <th>Movie Title</th>
-                                <th>Duration</th>
+                                <td><?php echo $row["movie_id"]; ?></td>
+                                <td><?php echo $row["movie_name"]; ?></td>
+                                <td><?php echo $row["running_time"]; ?></td>
                             </tr>
-                            <tbody>
-                            <?php
-                                $SQL = "SELECT movie_id, movie_name, running_time FROM movie_summary LIMIT 10";
-                                $result = $con -> query($SQL);
-                                while ($row = $result->fetch_assoc()) { ?>
-                                  <tr>
-                                      <td><?php echo $row["movie_id"]; ?></td>
-                                      <td><?php echo $row["movie_name"]; ?></td>
-                                      <td><?php echo $row["running_time"]; ?></td>
-                                  </tr>
-                              <?php } ?>
-                            </tbody>
-                        </thead>
-                    </table>
-                    <hr>
-                </div>
-            </div>
-        </div>
+                        <?php } ?>
+                      </tbody>
+                  </thead>
+              </table>
+              <hr>
+          </div>
       </div>
-
-
-
+    </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>
