@@ -1,3 +1,6 @@
+<?php
+  require 'config.php';
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -31,48 +34,45 @@
     <div class="jumbotron">
       <h1 class="display-4">Welcome</h1>
     </div>
-    <?php
-    
-    ?>
-
+    <div class="row row-center-justify">
+      <div class="col-lg-10">
+        <form class="form-inline justify-content-center">
+          <input type="search" id="search" value="" class="form-control" placeholder="Search movies">
+        </form>
+      </div>
+    </div><br /><br />
+    <div class="bg-light d-flex justify-content-between">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-4">
-                <input type="search" id="search" value="" class="form-control" placeholder="Search movies">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table" id="table">
+                        <thead>
+                            <tr>
+                                <th>Movie ID</th>
+                                <th>Movie Title</th>
+                                <th>Duration</th>
+                            </tr>
+                            <tbody>
+                            <?php
+                                $SQL = "SELECT movie_id, movie_name, running_time FROM movie_summary LIMIT 10";
+                                $result = $con -> query($SQL);
+                                while ($row = $result->fetch_assoc()) { ?>
+                                  <tr>
+                                      <td><?php echo $row["movie_id"]; ?></td>
+                                      <td><?php echo $row["movie_name"]; ?></td>
+                                      <td><?php echo $row["running_time"]; ?></td>
+                                  </tr>
+                              <?php } ?>
+                            </tbody>
+                        </thead>
+                    </table>
+                    <hr>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <table class="table" id="table">
-                    <thead>
-                        <tr>
-                            <th>First column</th>
-                            <th>Second column</th>
-                            <th>Third column</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Introducing</td>
-                            <td>jQuery</td>
-                            <td>Searchable</td>
-                        </tr>
-                        <tr>
-                            <td>Lorem</td>
-                            <td>Ipsum</td>
-                            <td>Dolor</td>
-                        </tr>
-                        <tr>
-                            <td>Some</td>
-                            <td>More</td>
-                            <td>Data</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr>
-            </div>
-        </div>
-    </div>
+      </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
