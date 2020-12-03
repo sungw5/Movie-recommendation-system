@@ -46,41 +46,65 @@
               <table class="table" id="table">
                   <thead class="thead-dark">
                       <tr>
-                          <th>Movie ID</th>
+                          <th class="th-sm">Movie ID</th>
                           <th>Movie Title</th>
                           <th>Duration</th>
                       </tr>
                       <tbody>
                       <?php
-                          $SQL = "SELECT movie_id, movie_name, running_time FROM movie_summary LIMIT 10";
-                          $result = $con -> query($SQL);
-                          while ($row = $result->fetch_assoc()) { ?>
-                            <tr>
-                                <td><?php echo $row["movie_id"]; ?></td>
-                                <td><?php echo $row["movie_name"]; ?></td>
-                                <td><?php echo $row["running_time"]; ?></td>
-                            </tr>
+                        $result_per_page = 50;
+
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                        $start_page = ($page - 1) * $result_per_page;
+
+                        $results = $con -> query("SELECT movie_id, movie_name, running_time FROM movie_summary LIMIT $start_page, $result_per_page");
+                        $total_results = $con -> query("SELECT movie_id, movie_name, running_time FROM movie_summary");
+
+                        $number_of_results = mysqli_num_rows($results);
+                        $total_num_of_results = mysqli_num_rows($total_results);
+                        $number_of_pages = ceil($total_num_of_results / $result_per_page);
+
+                        if($page - 1 >= 1) {
+                          $previous = $page - 1;
+                        } else {
+                          $previous = 1;
+                        }
+                        
+                        if($page + 1 <= $number_of_pages) {
+                          $next = $page + 1;
+                        } else {
+                          $next = $number_of_pages;
+                        }
+                        while ($row = mysqli_fetch_array($results)) {?>
+                          <tr>
+                              <td><?php echo $row["movie_id"]; ?></td>
+                              <td><?php echo $row["movie_name"]; ?></td>
+                              <td><?php echo $row["running_time"]; ?></td>
+                          </tr>
                         <?php } ?>
                       </tbody>
                   </thead>
               </table>
               <hr>
-              <nav aria-label="Page navigation example">
+              <nav aria-label="...">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
                   <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="homepage.php?page=<?= $previous; ?>" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+
+                  <?php for($i=1; $i<$number_of_pages; $i++): ?>
+                    <li class="page-item"><a class = "page-link" href="homepage.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+                  <?php endfor; ?>
+    
+                  <li class="page-item">
+                    <a class="page-link" href="homepage.php?page=<?= $next; ?>"">Next</a>
                   </li>
                 </ul>
               </nav>
           </div>
           <div class="col-lg-3 ml-5">
                 <h3>Update Request</h3>
+                <br />
                 <form action="process.php" method="POST">
                     <div class="form-group">
                         <label for="req-movie">Movie Name</label>
