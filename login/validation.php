@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$con = mysqli_connect("localhost", "root", "");
+$con = mysqli_connect("localhost", "root", "", "users");
 if(!$con) {
   echo "Could not connect";
 }
@@ -15,7 +15,7 @@ $result = mysqli_query($con, $query);
 $count = mysqli_num_rows($result);
 
 if($count == 1) {
-  header("location:../homepage/homepage.html");
+  header("location:../homepage/homepage.php");
 } else {
   header("location:../login/login.html");
 }
