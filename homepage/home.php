@@ -8,12 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"/>
-  
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -44,6 +38,20 @@
     </div>
     <div class="container">
         <div class="row">
+          <div class="searchbar col-lg-4 col-lg-offset-4">
+              <input type="search" id="search" value="" class="form-control" placeholder="Search movies">
+          </div>
+          <div class="dropdown ml-4">
+            <a class="btn btn-warning btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Limit
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+            </div>
+          </div>
+        </div><br/>
+        <div class="row">
           <div class="col-lg-8 mr-4">
               <table class="table" id="id-table">
                   <thead class="thead-dark">
@@ -54,7 +62,29 @@
                       </tr>
                       <tbody>
                       <?php
-                        $results = $con -> query("SELECT movie_id, movie_name, running_time FROM movie_summary");
+                        $result_per_page = 50;
+
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                        $start_page = ($page - 1) * $result_per_page;
+
+                        $results = $con -> query("SELECT movie_id, movie_name, running_time FROM movie_summary LIMIT $start_page, $result_per_page");
+                        $total_results = $con -> query("SELECT movie_id, movie_name, running_time FROM movie_summary");
+
+                        $number_of_results = mysqli_num_rows($results);
+                        $total_num_of_results = mysqli_num_rows($total_results);
+                        $number_of_pages = ceil($total_num_of_results / $result_per_page);
+
+                        if($page - 1 >= 1) {
+                          $previous = $page - 1;
+                        } else {
+                          $previous = 1;
+                        }
+                        
+                        if($page + 1 <= $number_of_pages) {
+                          $next = $page + 1;
+                        } else {
+                          $next = $number_of_pages;
+                        }
                         while ($row = mysqli_fetch_array($results)) {?>
                           <tr>
                               <td><?php echo $row["movie_id"]; ?></td>
@@ -65,6 +95,22 @@
                       </tbody>
                   </thead>
               </table>
+              <hr>
+              <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a class="page-link" href="homepage.php?page=<?= $previous; ?>" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+
+                  <?php for($i=1; $i<$number_of_pages; $i++): ?>
+                    <li class="page-item"><a class = "page-link" href="homepage.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+                  <?php endfor; ?>
+    
+                  <li class="page-item">
+                    <a class="page-link" href="homepage.php?page=<?= $next; ?>"">Next</a>
+                  </li>
+                </ul>
+              </nav>
           </div>
           <div class="col-lg-3 ml-5">
                 <h3>Update Request</h3>
@@ -93,11 +139,7 @@
           </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $("#id-table").DataTable();
-      });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>
 </html>
