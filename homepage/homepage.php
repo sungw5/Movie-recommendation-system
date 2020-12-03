@@ -1,5 +1,6 @@
 <?php
   require 'config.php';
+  require 'process.php';
 ?>
 <html lang="en">
   <head>
@@ -80,10 +81,10 @@
           </div>
           <div class="col-lg-3 ml-5">
                 <h3>Update Request</h3>
-                <form action="" method="POST">
+                <form action="process.php" method="POST">
                     <div class="form-group">
                         <label for="req-movie">Movie Name</label>
-                        <input type="text" name="movie_name" class="form-control" placeholder="Enter email">
+                        <input type="text" name="movie_title" class="form-control" placeholder="Enter movie name">
                     </div>
                     <div class="form-group">
                         <label for="req-total-gross">Total Gross</label>
@@ -91,13 +92,12 @@
                     </div>
                     <div class="form-group">
                         <label for="req-duration">Duration</label>
-                        <input type="text" name="duration" class="form-control" placeholder="Enter duration">
+                        <input type="text" name="running_time" class="form-control" placeholder="Enter duration">
                     </div>
                     <div class="form-group">
                         <label for="req-release">Release</label>
-                        <input type="text" name="release" class="form-control" placeholder="Enter release">
+                        <input type="text" name="release_date" class="form-control" placeholder="Enter release year">
                     </div>
-                    
                     <div class="form-group">
                         <button type="submit" name="submit" class="update-req-btn btn btn-dark">Submit</button>
                     </div> 
