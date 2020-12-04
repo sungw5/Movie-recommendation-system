@@ -52,31 +52,78 @@
               <table class="table table-striped" id="id-table">
                   <thead class="thead-dark">
                       <tr>
-                          <th>S.No</th>
-                          <th>Movie</th>
-                          <th>Duration</th>
-                          <th>Genre</th>
                           <th>Rank</th>
+                          <th>Movie</th>
+                          <th>US Distributor</th>
+                          <th>Duration</th>
                           <th>Lifetime Gross</th>
                           <th>MPAA</th>
+                          <th>Crew</th>
                           <th>Favorite</th>
                       </tr>
                       <tbody>
                       <?php
-                        // For information which are multiple in number, maybe on clicking you see a modal? 
-                        $results = $con -> query("SELECT M.id, M.movie_name, M.running_time, M.genre, M.mpaa, B.rank, B.lifetime_gross 
+                        $results = $con -> query("SELECT M.movie_id, M.movie_name, M.running_time, M.us_distributor, M.mpaa, B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
                         WHERE M.movie_id = B.movie_id");
-                      
                         while ($row = mysqli_fetch_array($results)) {?>
                           <tr>
-                              <td><?php echo $row["id"]; ?></td>
-                              <td><?php echo $row["movie_name"]; ?></td>
-                              <td><?php echo $row["running_time"]; ?></td>
-                              <td><?php echo $row["genre"]; ?></td>
                               <td><?php echo $row["rank"]; ?></td>
+                              <td><?php echo $row["movie_name"]; ?></td>
+                              <td><?php echo $row["us_distributor"]; ?></td>
+                              <td><?php echo $row["running_time"]; ?></td>
                               <td><?php echo $row["lifetime_gross"]; ?></td>
                               <td><?php echo $row["mpaa"]; ?></td>
+                              <td>      
+                              
+                                <?php $id = $row["movie_id"]; ?>            
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_<?php echo $id?>">
+                                  Crew 
+                                </button>
+
+                                <div class="modal fade" id="modal_<?php echo $id?>" tabindex="-1" role="dialog" aria-labelledby="modal_<?php echo $id?>" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $row["movie_name"]; ?></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <table class="table" id="id-table">
+                                          <thead class="thead-dark">
+                                              <tr>
+                                                  <th>Name</th>
+                                                  <th>Role</th>
+                                              </tr>
+                                              <tbody>
+
+                                                
+                                                <?php
+                                                  $new_results = $con -> query("SELECT C.member_name, C.role
+                                                  FROM movie_crew_data C
+                                                  WHERE C.movie_id = '$id'");
+                                                
+                                                  while ($row = mysqli_fetch_array($new_results)) {?>
+                                                    <tr>
+                                                        <td><?php echo $row["member_name"]; ?></td>
+                                                        <td><?php echo $row["role"]; ?></td>
+                                                    </tr>
+                                                  <?php } ?>
+                                              </tbody>
+                                          </thead>
+                                        </table>
+
+
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
                               <td>
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                   <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
