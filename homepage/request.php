@@ -43,7 +43,7 @@
       <h1 class="display-4">Welcome</h1>
     </div>
         <div class="row justify-content-center align-items-center">
-          <h3>Update Request</h3>
+          <h3>Submit a Movie Request</h3>
         </div>
         <br />
       <div class="row justify-content-center align-items-center">
