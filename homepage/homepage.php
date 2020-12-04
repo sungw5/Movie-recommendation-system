@@ -64,9 +64,11 @@
                       </tr>
                       <tbody>
                       <?php
-                        $results = $con -> query("SELECT M.movie_id, M.movie_name, M.running_time, M.us_distributor, M.mpaa, B.rank, B.lifetime_gross 
+                        $results = $con -> query("SELECT M.movie_id, M.movie_name, M.running_time, M.us_distributor, M.mpaa, 
+                        B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
-                        WHERE M.movie_id = B.movie_id");
+                        WHERE M.movie_id = B.movie_id
+                        LIMIT 30");
                         while ($row = mysqli_fetch_array($results)) {?>
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
@@ -79,7 +81,7 @@
                                 <?php $movie_id = $row["movie_id"]; ?>    
                                 <?php $movie_name = $row["movie_name"]; ?>
 
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_<?php echo $movie_id?>">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_<?php echo $movie_id?>">
                                   Crew 
                                 </button>
                                 <div class="modal fade" id="modal_<?php echo $movie_id?>" tabindex="-1" role="dialog" aria-labelledby="modal_<?php echo $id?>" aria-hidden="true">
@@ -172,9 +174,11 @@
                                 </div>
                               </td>
                               <td>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                </svg>
+                                <a type="button" class="btn btn-light" href="#">
+                                  <svg width="2em" height="1.5em" viewBox="0 0 20 20" class="bi bi-heart-fill" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                  </svg>
+                                </button>
                               </td>
                           </tr>
                         <?php } ?>
