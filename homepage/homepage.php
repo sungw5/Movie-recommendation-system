@@ -59,6 +59,7 @@
                           <th>Lifetime Gross</th>
                           <th>MPAA</th>
                           <th>Crew</th>
+                          <th>Box Office Data</th>
                           <th>Favorite</th>
                       </tr>
                       <tbody>
@@ -75,17 +76,17 @@
                               <td><?php echo $row["lifetime_gross"]; ?></td>
                               <td><?php echo $row["mpaa"]; ?></td>
                               <td>      
-                              
-                                <?php $id = $row["movie_id"]; ?>            
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_<?php echo $id?>">
+                                <?php $movie_id = $row["movie_id"]; ?>    
+                                <?php $movie_name = $row["movie_name"]; ?>
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_<?php echo $movie_id?>">
                                   Crew 
                                 </button>
-
-                                <div class="modal fade" id="modal_<?php echo $id?>" tabindex="-1" role="dialog" aria-labelledby="modal_<?php echo $id?>" aria-hidden="true">
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal fade" id="modal_<?php echo $movie_id?>" tabindex="-1" role="dialog" aria-labelledby="modal_<?php echo $id?>" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $row["movie_name"]; ?></h5>
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $movie_name; ?></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
@@ -98,12 +99,11 @@
                                                   <th>Role</th>
                                               </tr>
                                               <tbody>
-
-                                                
                                                 <?php
                                                   $new_results = $con -> query("SELECT C.member_name, C.role
                                                   FROM movie_crew_data C
-                                                  WHERE C.movie_id = '$id'");
+                                                  WHERE C.movie_id = '$movie_id'
+                                                  ORDER BY C.member_name");
                                                 
                                                   while ($row = mysqli_fetch_array($new_results)) {?>
                                                     <tr>
@@ -113,9 +113,56 @@
                                                   <?php } ?>
                                               </tbody>
                                           </thead>
+                                        </table>                                  
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>                
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#price_modal_<?php echo $movie_id?>">
+                                  Collection 
+                                </button>
+                                <div class="modal fade" id="price_modal_<?php echo $movie_id?>" tabindex="-1" role="dialog" aria-labelledby="price_modal_<?php echo $movie_id?>" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $movie_name; ?></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <table class="table" id="id-table">
+                                          <thead class="thead-dark">
+                                              <tr>
+                                                  <th>Country</th>
+                                                  <th>Release Date</th>
+                                                  <th>Opening</th>
+                                                  <th>Gross</th>
+                                              </tr>
+                                              <tbody>
+                                                <?php
+                                                  $bo_results = $con -> query("SELECT B.market, B.release_date, B.opening, B.gross
+                                                  FROM bo_collections_data B, bo_releases_id R
+                                                  WHERE R.movie_id = '$movie_id' AND
+                                                  R.release_id = B.release_id
+                                                  ORDER BY B.market, B.release_date");
+                                                
+                                                  while ($row = mysqli_fetch_array($bo_results)) {?>
+                                                    <tr>
+                                                        <td><?php echo $row["market"]; ?></td>
+                                                        <td><?php echo $row["release_date"]; ?></td>
+                                                        <td><?php echo $row["opening"]; ?></td>
+                                                        <td><?php echo $row["gross"]; ?></td>
+                                                    </tr>
+                                                  <?php } ?>
+                                              </tbody>
+                                          </thead>
                                         </table>
-
-
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
