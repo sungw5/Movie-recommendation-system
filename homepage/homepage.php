@@ -127,7 +127,7 @@
                                   Collection 
                                 </button>
                                 <div class="modal fade" id="price_modal_<?php echo $movie_id?>" tabindex="-1" role="dialog" aria-labelledby="price_modal_<?php echo $movie_id?>" aria-hidden="true">
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $movie_name; ?></h5>
