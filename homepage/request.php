@@ -23,7 +23,7 @@
             <a class="nav-link" href="homepage.php">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="favorites.html">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
@@ -51,7 +51,7 @@
           <form action="process.php" method="POST">
               <div class="form-group">
                   <label for="req-movie">Movie Name</label>
-                  <input type="text" name="movie_title" class="form-control" placeholder="Enter movie name">
+                  <input type="text" name="movie_name" class="form-control" placeholder="Enter movie name">
               </div>
               <div class="form-group">
                   <label for="req-total-gross">Total Gross</label>

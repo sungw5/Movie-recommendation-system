@@ -24,13 +24,13 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="../homepage/favorites.html">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="request.php">Update <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -48,25 +48,40 @@
     </div>
     <div class="container">
         <div class="row">
-          <div class="col-lg-8 mr-4">
+          <div class="col">
               <table class="table table-striped" id="id-table">
                   <thead class="thead-dark">
                       <tr>
-                          <th>Movie ID</th>
-                          <th>Movie Title</th>
+                          <th>S.No</th>
+                          <th>Movie</th>
                           <th>Duration</th>
+                          <th>Genre</th>
+                          <th>Rank</th>
+                          <th>Lifetime Gross</th>
+                          <th>MPAA</th>
                           <th>Favorite</th>
                       </tr>
                       <tbody>
                       <?php
-                        // Add CREATE TABLE commands and use JOIN statements to produce the desired columns
-                        $results = $con -> query("SELECT movie_id, movie_name, running_time FROM movie_summary");
+                        // For information which are multiple in number, maybe on clicking you see a modal? 
+                        $results = $con -> query("SELECT M.id, M.movie_name, M.running_time, M.genre, M.mpaa, B.rank, B.lifetime_gross 
+                        FROM movie_summary M, bo_summary B
+                        WHERE M.movie_id = B.movie_id");
+                      
                         while ($row = mysqli_fetch_array($results)) {?>
                           <tr>
-                              <td><?php echo $row["movie_id"]; ?></td>
+                              <td><?php echo $row["id"]; ?></td>
                               <td><?php echo $row["movie_name"]; ?></td>
                               <td><?php echo $row["running_time"]; ?></td>
-                              <td></td>
+                              <td><?php echo $row["genre"]; ?></td>
+                              <td><?php echo $row["rank"]; ?></td>
+                              <td><?php echo $row["lifetime_gross"]; ?></td>
+                              <td><?php echo $row["mpaa"]; ?></td>
+                              <td>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                </svg>
+                              </td>
                           </tr>
                         <?php } ?>
                       </tbody>
