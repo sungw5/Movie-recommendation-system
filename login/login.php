@@ -34,7 +34,7 @@ function login(){
       $_SESSION['user'] = $logged_in_user;
       $_SESSION['success']  = "You are now logged in";
       // go to admin homepage
-      header("location:../homepage/adminhomepage.php");
+      header("location:../admin/adminhomepage.php");
     }
     else{
 

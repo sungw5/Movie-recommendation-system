@@ -1,7 +1,6 @@
 
 <?php
 session_start();
-// header("location:../login/login.php");
 
 $con = mysqli_connect("localhost", "root", "password");
 if(!$con) echo "Could not connect";
@@ -41,13 +40,13 @@ function register(){
       mysqli_query($con, $register_query);
 
       $_SESSION['success'] = "User registration successful";
-      header("location:../login/login.html");
+      // directs to admin's user management page
+      header("location:../admin/users.php");
     }
     else{ // regular user registration
 
       $register_query = "INSERT INTO user_registration (username, password, user_type) VALUES('$username', '$password', 'user')";
       mysqli_query($con, $register_query);
-      // header("location:../login/login. php");
 
       // to prevent access pages without login
       $logged_in_user_id = mysqli_insert_id($con);

@@ -1,6 +1,5 @@
 <?php
-  require 'config.php';
-  require 'process.php';
+  require '../homepage/config.php';
   include('../registration/registration.php');
 ?>
 
@@ -32,7 +31,7 @@ if (is_admin() == false) {
             <a class="nav-link" href="#">Movies<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Users<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="users.php">Users<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">Review-Requests <span class="sr-only">(current)</span></a>

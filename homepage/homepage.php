@@ -118,7 +118,7 @@ if (is_logged_in() == false) {
                                               </tr>
                                               <tbody>
                                                 <?php
-                                                  $new_results = $con -> query("SELECT C.member_name, C.role
+                                                  $new_results = $con -> query("SELECT DISTINCT C.member_name, C.role
                                                   FROM movie_crew_data C
                                                   WHERE C.movie_id = '$movie_id'
                                                   ORDER BY C.member_name");
