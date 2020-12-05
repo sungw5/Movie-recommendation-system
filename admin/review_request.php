@@ -79,7 +79,7 @@ if (is_admin() == false) {
                     <tr>
                         <th>id</th>
                         <th>Movie name</th>
-                        <th>Total gross</th>
+                        <th>MPAA</th>
                         <th>Running Time</th>
                         <th>Release Date</th>
                         <th colspan="2">Action</th>
@@ -93,11 +93,13 @@ if (is_admin() == false) {
                   <tr>
                     <td><?php echo $row['id'] ?></td>
                     <td><?php echo $row['movie_name'] ?></td>
-                    <td><?php echo $row['total_gross'] ?></td>
+                    <td><?php echo $row['mpaa'] ?></td>
                     <td><?php echo $row['running_time'] ?></td>
                     <td><?php echo $row['release_date'] ?></td>
 
-                    <td><a href="review_request_function.php?delete=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a></td>
+                    <!-- <td><button type="submit" name="accept" class="btn btn-sm btn-success">Accept</button></td> -->
+                    <td><a href="review_request_function.php?accept=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Accept</a></td>
+                    <td><a href="review_request_function.php?delete=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger">Delete</a></td>
 
                   </tr>
 

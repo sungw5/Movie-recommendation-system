@@ -1,6 +1,13 @@
 <?php
   require 'config.php';
   require 'process.php';
+  include('../registration/registration.php');
+?>
+
+<?php
+if (is_logged_in() == false) {
+  header('location:../login/login.html');
+}
 ?>
 <html lang="en">
   <head>
@@ -40,7 +47,16 @@
       </div>
     </nav>
     <div class="jumbotron">
-      <h1 class="display-4">Welcome</h1>
+      <h1 class="display-4">Welcome, 
+
+        <?php  if (isset($_SESSION['user'])) : ?>
+        <strong><?php echo $_SESSION['user']['username']; ?></strong>
+        <small>
+          <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+        </small>
+        <?php endif ?>
+
+      </h1>
     </div>
         <div class="row justify-content-center align-items-center">
           <h3>Submit a Movie Request</h3>
@@ -54,8 +70,8 @@
                   <input type="text" name="movie_name" class="form-control" placeholder="Enter movie name">
               </div>
               <div class="form-group">
-                  <label for="req-total-gross">Total Gross</label>
-                  <input type="number" name="total_gross" class="form-control" placeholder="Enter total gross">
+                  <label for="req-mpaa">MPAA</label>
+                  <input type="text" name="mpaa" class="form-control" placeholder="Enter MPAA">
               </div>
               <div class="form-group">
                   <label for="req-duration">Duration</label>

@@ -3,7 +3,7 @@ $con = new mysqli('localhost', 'root', "password", "users") or die(mysqli_error(
 
 if(isset($_POST['submit'])) {
     $movie_name = $_POST['movie_name'];
-    $total_gross = $_POST['total_gross'];
+    $mpaa = $_POST['mpaa'];
     $running_time = $_POST['running_time'];
     $release_date = $_POST['release_date'];
 
@@ -20,7 +20,7 @@ if(isset($_POST['submit'])) {
         $SQL = "CREATE TABLE movie_recommendation_db (
             id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
             movie_name VARCHAR(255) NOT NULL,
-            total_gross VARCHAR(100) NOT NULL,
+            mpaa VARCHAR(100) NOT NULL,
             running_time VARCHAR(100) NOT NULL,
             release_date VARCHAR(100) NOT NULL)";
 
@@ -33,8 +33,8 @@ if(isset($_POST['submit'])) {
 
     
 
-    $con->query("INSERT INTO movie_recommendation_db (movie_name, total_gross, running_time, release_date) 
-                    VALUES('$movie_name', '$total_gross', '$running_time', '$release_date');");
+    $con->query("INSERT INTO movie_recommendation_db (movie_name, mpaa, running_time, release_date) 
+                    VALUES('$movie_name', '$mpaa', '$running_time', '$release_date');");
     header("location:../homepage/homepage.php");
 }
 ?>
