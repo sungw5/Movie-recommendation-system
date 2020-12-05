@@ -34,7 +34,7 @@ if (is_admin() == false) {
             <a class="nav-link" href="users.php">Users<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Review-Requests <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="review_request.php">Review-Requests <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
