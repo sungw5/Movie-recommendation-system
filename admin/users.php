@@ -26,7 +26,7 @@ if (is_admin() == false) {
     <!-- table edit -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-tabledit@1.0.0/jquery.tabledit.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../assets/jquery-tabledit-1.2.3/jquery.tabledit.min.js"></script>
+    <script src="../assets/tabledit/jquery.tabledit.min.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
