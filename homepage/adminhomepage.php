@@ -5,8 +5,9 @@
 ?>
 
 <?php
-if (is_logged_in() == false) {
-  header('location:../login/login.html');
+if (is_admin() == false) {
+  $_SESSION['msg'] = "You must log in first";
+  header('location: ../login.php');
 }
 ?>
 <html lang="en">
@@ -28,16 +29,13 @@ if (is_logged_in() == false) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Movies<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Users<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Review-Requests <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
