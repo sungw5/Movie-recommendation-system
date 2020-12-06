@@ -34,7 +34,7 @@
           <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
         </svg>
         <form class="form-inline my-2 my-lg-0">
-          <a class="btn btn-danger my-2 my-sm-0" href="login/login.html" role="button">Logout</a>
+          <a class="btn btn-danger my-2 my-sm-0" href="../login/login.html" role="button">Logout</a>
         </form>
       </div>
     </nav>

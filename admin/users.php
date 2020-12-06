@@ -79,15 +79,14 @@ if (is_admin() == false) {
 
         <div class="row">
           <div class="col">
-              <table id="myTable" class="table table-hover table-striped">
-                <thead>
+              <table id="myTable" class="table table-bordered table-striped">
+                <thead class="thead-dark">
                     <tr>
                         <th>User ID</th>
                         <th>Username</th>
                         <th>Password</th>
                         <th>User Type</th>
                         <th class="tabledit-toolbar-column">Action</th>
-                        <!-- <th colspan="2">Action</th> -->
                     </tr>
                 </thead>
                   
@@ -107,51 +106,44 @@ if (is_admin() == false) {
               </table>
             </div>
         </div>
-
     </div>
     
-
     <script>
-        // $(document).ready( function () {
-        //     $('#myTable').DataTable();
-        // } );
-
-        $(document).ready(function(){
-            $('#myTable').Tabledit({
-                url:'users_function.php',
-                columns: {
-                    identifier: [0, 'user_id'],
-                    editable: [[1, 'username'], [2, 'password'], [3, 'user_type']]
-                },
-                restoreButton:false,
-                onSuccess:function(data, textStatus, jqXHR){
-                    if(data.action == 'delete'){
-                        $('#'+data.user_id).remove();
-                    }
-                },
-                    buttons: {
-                    edit: {
-                        class: 'btn btn-sm btn-secondary',
-                        html: '<span class="fa fa-cog"></span>',
-                        action: 'edit'
-                    },
-                    delete: {
-                        class: 'btn btn-sm btn-danger',
-                        html: '<span class="fa fa-trash"></span>',
-                        action: 'delete'
-                    },
-                    save: {
-                        class: 'btn btn-outline-success',
-                        html: 'Save'
-                    },
-                    confirm: {
-                        class: 'btn btn-sm btn-outline-danger',
-                        html: 'Confirm'
-                    }
-                }
-
-            });
-        });
+      $(document).ready(function(){
+          $('#myTable').Tabledit({
+              url:'users_function.php',
+              columns: {
+                  identifier: [0, 'user_id'],
+                  editable: [[1, 'username'], [2, 'password'], [3, 'user_type']]
+              },
+              restoreButton:false,
+              onSuccess:function(data, textStatus, jqXHR){
+                  if(data.action == 'delete'){
+                      $('#'+data.user_id).remove();
+                  }
+              },
+                  buttons: {
+                  edit: {
+                      class: 'btn btn-sm btn-secondary',
+                      html: '<span class="fa fa-cog"></span>',
+                      action: 'edit'
+                  },
+                  delete: {
+                      class: 'btn btn-sm btn-danger',
+                      html: '<span class="fa fa-trash"></span>',
+                      action: 'delete'
+                  },
+                  save: {
+                      class: 'btn btn-outline-success',
+                      html: 'Save'
+                  },
+                  confirm: {
+                      class: 'btn btn-sm btn-outline-danger',
+                      html: 'Confirm'
+                  }
+              }
+          });
+      });
     </script>
   </body>
 </html>
