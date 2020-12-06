@@ -226,7 +226,7 @@
               <li class="list-group-item"><strong>Favorite ID:</strong> <?php echo $fav_id ?></li>
               <li class="list-group-item"><strong>Running time:</strong> <?php echo $running_time ?></li>
             </ul>
-            <div class="card-footer">
+            <div class="card-footer justify-center">
               <i class="fa fa-heart" style="color:red" aria-hidden="true"></i>
             </div>
           </div>
@@ -238,3 +238,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>
 </html>
+
