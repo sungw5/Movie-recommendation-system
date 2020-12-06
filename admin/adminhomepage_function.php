@@ -5,6 +5,9 @@ require '../homepage/config.php';
 
 session_start();
 
+// Start transaction
+$con->begin_transaction();
+
 
 //Edit items
 if(isset($_POST['update_item'])){
@@ -21,8 +24,10 @@ if(isset($_POST['update_item'])){
     $sql2 = "UPDATE movie_summary SET movie_name='$movie_name', us_distributor='$us_distributor', running_time='$running_time', mpaa='$mpaa' WHERE movie_id='$edit_item_id' ";
 
     if ($con->query($sql1) === TRUE && $con->query($sql2) === TRUE) {
-        echo '<script>window.location.href="adminhomepage.php"</script>';
+        $con->commit();
+        header("location: adminhomepage.php");
     } else {
+        $con->rollback();
         echo "Error updating record: " . $con->error;
     }
 }
@@ -36,11 +41,15 @@ if(isset($_POST['delete'])){
       $sql3 = "DELETE FROM movie_crew_data WHERE movie_id='$delete_id' ";
       
       if ($con->query($sql1) === TRUE && $con->query($sql2) === TRUE && $con->query($sql3) === TRUE ) {
-        echo '<script>window.location.href="adminhomepage.php"</script>';
+          $con->commit();
+          header("location: adminhomepage.php");
       }
       else {
+        $con->rollback();
         echo "Error deleting record: " . $con->error;
       }
   }
+
+
 
 ?>
