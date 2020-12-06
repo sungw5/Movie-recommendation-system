@@ -9,7 +9,35 @@ mysqli_select_db($con, "users");
 
 $username = "";
 
-if(isset($_POST['register']) || isset($_POST['create'])){
+if(isset($_POST['register']) || isset($_POST['create'])) {
+
+  // Create user_registration table if not already created
+  $search = "SELECT 1 FROM `user_registration` LIMIT 1";
+  $is_table_exists = mysqli_query($con, $search);
+
+  if($is_table_exists == TRUE)
+  {
+      // don't create the table if the table already exists
+  }
+
+  else
+  {
+      $SQL = "CREATE TABLE user_registration (
+          user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+          name VARCHAR(50) NOT NULL,
+          email VARCHAR(50) NOT NULL,
+          phone INT(12) NOT NULL,
+          username VARCHAR(25) NOT NULL, 
+          password VARCHAR(50) NOT NULL, 
+          user_type VARCHAR(25) NOT NULL, 
+          timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)";
+
+      if(mysqli_query($con, $SQL)) {
+          echo "Table created successfully";
+      } else {
+          echo "ERROR: Could not execute $SQL. " . mysqli_error($con);
+      }
+  }
   register();
 }
 

@@ -1,5 +1,5 @@
 <?php
-$con = new mysqli('localhost', 'root', "password", "users") or die(mysqli_error($con));
+$con = new mysqli('localhost', 'root', "", "users") or die(mysqli_error($con));
 
 if(isset($_POST['submit'])) {
     $movie_name = $_POST['movie_name'];
@@ -8,13 +8,14 @@ if(isset($_POST['submit'])) {
     $release_date = $_POST['release_date'];
 
 
-    $search = 'select 1 from `movie_recommendation_db` LIMIT 1';
+    $search = "SELECT 1 FROM `movie_recommendation_db` LIMIT 1";
     $is_table_exists = mysqli_query($con, $search);
 
-    if($is_table_exists !== FALSE)
+    if($is_table_exists == TRUE)
     {
         // don't create the table if the table already exists
     }
+    
     else
     {
         $SQL = "CREATE TABLE movie_recommendation_db (
@@ -31,10 +32,9 @@ if(isset($_POST['submit'])) {
         }
     }
 
-    
-
     $con->query("INSERT INTO movie_recommendation_db (movie_name, mpaa, running_time, release_date) 
-                    VALUES('$movie_name', '$mpaa', '$running_time', '$release_date');");
+                VALUES('$movie_name', '$mpaa', '$running_time', '$release_date');");
     header("location:../homepage/homepage.php");
 }
 ?>
+
