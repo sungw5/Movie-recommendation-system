@@ -42,7 +42,6 @@
             $movie_name = $row['movie_name'];
             $mpaa = $row['mpaa'];
             $running_time = $row['running_time'];
-            // $release_date = $row['release_date'];
         }
 
         $con->query("INSERT INTO movie_summary (movie_id, movie_name, mpaa, running_time) VALUES('$id', '$movie_name', '$mpaa', '$running_time');");

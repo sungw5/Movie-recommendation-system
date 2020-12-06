@@ -19,9 +19,13 @@ if(isset($_POST['update_item'])){
     $mpaa = $_POST['mpaa'];
 
 
-    $sql1 = "UPDATE bo_summary SET title='$movie_name', lifetime_gross='$lifetime_gross' WHERE movie_id='$edit_item_id' ";
+    $sql1 = "UPDATE bo_summary SET movie_name='$movie_name', 
+            lifetime_gross='$lifetime_gross'
+            WHERE movie_id='$edit_item_id' ";
 
-    $sql2 = "UPDATE movie_summary SET movie_name='$movie_name', us_distributor='$us_distributor', running_time='$running_time', mpaa='$mpaa' WHERE movie_id='$edit_item_id' ";
+    $sql2 = "UPDATE movie_summary SET movie_name='$movie_name', 
+            us_distributor='$us_distributor', running_time='$running_time', 
+            mpaa='$mpaa' WHERE movie_id='$edit_item_id' ";
 
     if ($con->query($sql1) === TRUE && $con->query($sql2) === TRUE) {
         $con->commit();

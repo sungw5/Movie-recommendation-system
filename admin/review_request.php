@@ -6,7 +6,7 @@
 <?php
 if (is_admin() == false) {
   $_SESSION['msg'] = "You must log in first";
-  header('location: ../login.php');
+  header('location: ../login/login.php');
 }
 ?>
 <html lang="en">
@@ -36,7 +36,7 @@ if (is_admin() == false) {
             <a class="nav-link" href="users.php">Users<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Review-Requests <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Review Requests <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -53,15 +53,15 @@ if (is_admin() == false) {
     <!-- Greetings -->
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
-
-        <?php  if (isset($_SESSION['user'])) : ?>
-        <strong><?php echo $_SESSION['user']['username']; ?></strong>
-        <small>
-          <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
-        </small>
-        <?php endif ?>
-
-      </h1>
+          <?php  if (isset($_SESSION['user'])) : ?>
+          <?php echo $_SESSION['user']['username']; ?>
+          <div class="text-left">
+            <p class="h4">
+              <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+            <?php endif ?>
+            </p>
+          </div>
+        </h1>
     </div>
 
 
@@ -74,10 +74,10 @@ if (is_admin() == false) {
 
         <div class="row">
           <div class="col">
-              <table class="table table-hover">
+              <table class="table table-hover table-striped" id="id-table">
                 <thead>
                     <tr>
-                        <th>id</th>
+                        <th>ID</th>
                         <th>Movie name</th>
                         <th>MPAA</th>
                         <th>Running Time</th>
@@ -112,9 +112,9 @@ if (is_admin() == false) {
     
 
     <script>
-        // $(document).ready( function () {
-        //     $('#myTable').DataTable();
-        // } );
+      // $(document).ready( function () {
+      //     $('#id-table').DataTable();
+      // } );
     </script>
   </body>
 </html>
