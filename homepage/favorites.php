@@ -67,13 +67,83 @@
       <div class="col-sm-6">
         <div class="card-deck">
           <?php
-          $fav_results = $con->query("SELECT movie_name FROM user_favorites");
+          $fav_results = $con->query("SELECT movie_id, movie_name FROM user_favorites");
           
           while ($fav_row = mysqli_fetch_array($fav_results)) { ?>
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title"><?php echo $fav_row['movie_name']; ?></h5>
                 <p class="card-text"></p>
+                
+
+                <?php $movie_id = $fav_row["movie_id"]; ?>    
+                <?php $movie_name = $fav_row["movie_name"]; ?>
+
+                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_<?php echo $movie_id?>">
+                  More info 
+                </button>
+                <div class="modal fade" id="modal_<?php echo $movie_id?>" tabindex="-1" role="dialog" aria-labelledby="modal_<?php echo $movie_id?>" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $movie_name; ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table" id="id-table">
+                          <thead class="thead-dark">
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Running time</th>
+                                  <th>Crew</th>
+                                  <th>Rank</th>
+                                  <th>Market</th>
+                                  <th>Release Date</th>
+                                  <th>Opening</th>
+                                  <th>Gross</th>
+                                  <th>Favorite ID</th>
+                              </tr>
+                              <tbody>
+                                <?php
+                                  $new_results = $con -> query("SELECT M.movie_name, M.running_time, 
+                                  C.member_name,
+                                  B.rank, B.market, B.release_date, B.opening, B.gross, 
+                                  F.favorite_id
+                                  FROM movie_summary M, bo_collections_data B, bo_releases_id R, bo_summary S, movie_crew_data C, user_favorites F
+                                  WHERE R.movie_id = '$movie_id' AND
+                                  R.release_id = B.release_id AND
+                                  C.movie_id = M.movie_id AND
+                                  S.movie_id = M.movie_id AND
+                                  F.movie_id = M.movie_id
+                                  ORDER BY M.movie_name, B.release_date");
+
+                                  // $result = mysqli_query($con, $new_results) or die( mysqli_error($con));
+                                
+                                  while ($row = mysqli_fetch_array($new_results)) {?>
+                                    <tr>
+                                        <td><?php echo $row["movie_name"]; ?></td>
+                                        <td><?php echo $row["running_time"]; ?></td>
+                                        <td><?php echo $row["member_name"]; ?></td>
+                                        <td><?php echo $row["rank"]; ?></td>
+                                        <td><?php echo $row["market"]; ?></td>
+                                        <td><?php echo $row["release_date"]; ?></td>
+                                        <td><?php echo $row["opening"]; ?></td>
+                                        <td><?php echo $row["gross"]; ?></td>
+                                        <td><?php echo $row["favorite_id"]; ?></td>
+                                    </tr>
+                                  <?php } ?>
+                              </tbody>
+                          </thead>
+                        </table>                                  
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>               
               </div>
               <div class="card-footer">
                 <i class="fa fa-heart" style="color:red" aria-hidden="true"></i>
@@ -88,3 +158,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>
 </html>
+
+
+
+
