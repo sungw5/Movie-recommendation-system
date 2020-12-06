@@ -6,7 +6,7 @@
 <?php
 if (is_admin() == false) {
   $_SESSION['msg'] = "You must log in first";
-  header('location: ../login.php');
+  header('location: ../login/login.html');
 }
 ?>
 <html lang="en">
@@ -39,7 +39,7 @@ if (is_admin() == false) {
             <a class="nav-link" href="#">Users<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="review_request.php">Review-Requests <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="review_request.php">Review Requests <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -56,17 +56,16 @@ if (is_admin() == false) {
     <!-- Greetings -->
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
-
         <?php  if (isset($_SESSION['user'])) : ?>
-        <strong><?php echo $_SESSION['user']['username']; ?></strong>
-        <small>
-          <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
-        </small>
-        <?php endif ?>
-
+          <?php echo $_SESSION['user']['username']; ?>
+          <div class="text-left">
+            <p class="h4">
+              <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+            <?php endif ?>
+            </p>
+          </div>
       </h1>
     </div>
-
 
     <?php
       $result = $con->query("SELECT * FROM user_registration");
@@ -80,15 +79,14 @@ if (is_admin() == false) {
 
         <div class="row">
           <div class="col">
-              <table id="myTable" class="table table-hover">
-                <thead>
+              <table id="myTable" class="table table-bordered table-striped">
+                <thead class="thead-dark">
                     <tr>
-                        <th>User_id</th>
+                        <th>User ID</th>
                         <th>Username</th>
                         <th>Password</th>
                         <th>User Type</th>
                         <th class="tabledit-toolbar-column">Action</th>
-                        <!-- <th colspan="2">Action</th> -->
                     </tr>
                 </thead>
                   
@@ -108,51 +106,44 @@ if (is_admin() == false) {
               </table>
             </div>
         </div>
-
     </div>
     
-
     <script>
-        // $(document).ready( function () {
-        //     $('#myTable').DataTable();
-        // } );
-
-        $(document).ready(function(){
-            $('#myTable').Tabledit({
-                url:'users_function.php',
-                columns: {
-                    identifier: [0, 'user_id'],
-                    editable: [[1, 'username'], [2, 'password'], [3, 'user_type']]
-                },
-                restoreButton:false,
-                onSuccess:function(data, textStatus, jqXHR){
-                    if(data.action == 'delete'){
-                        $('#'+data.user_id).remove();
-                    }
-                },
-                    buttons: {
-                    edit: {
-                        class: 'btn btn-sm btn-secondary',
-                        html: '<span class="fa fa-cog"></span>',
-                        action: 'edit'
-                    },
-                    delete: {
-                        class: 'btn btn-sm btn-danger',
-                        html: '<span class="fa fa-trash"></span>',
-                        action: 'delete'
-                    },
-                    save: {
-                        class: 'btn btn-outline-success',
-                        html: 'Save'
-                    },
-                    confirm: {
-                        class: 'btn btn-sm btn-outline-danger',
-                        html: 'Confirm'
-                    }
-                }
-
-            });
-        });
+      $(document).ready(function(){
+          $('#myTable').Tabledit({
+              url:'users_function.php',
+              columns: {
+                  identifier: [0, 'user_id'],
+                  editable: [[1, 'username'], [2, 'password'], [3, 'user_type']]
+              },
+              restoreButton:false,
+              onSuccess:function(data, textStatus, jqXHR){
+                  if(data.action == 'delete'){
+                      $('#'+data.user_id).remove();
+                  }
+              },
+                  buttons: {
+                  edit: {
+                      class: 'btn btn-sm btn-secondary',
+                      html: '<span class="fa fa-cog"></span>',
+                      action: 'edit'
+                  },
+                  delete: {
+                      class: 'btn btn-sm btn-danger',
+                      html: '<span class="fa fa-trash"></span>',
+                      action: 'delete'
+                  },
+                  save: {
+                      class: 'btn btn-outline-success',
+                      html: 'Save'
+                  },
+                  confirm: {
+                      class: 'btn btn-sm btn-outline-danger',
+                      html: 'Confirm'
+                  }
+              }
+          });
+      });
     </script>
   </body>
 </html>

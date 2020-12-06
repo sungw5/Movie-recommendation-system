@@ -48,14 +48,14 @@ if (is_logged_in() == false) {
     </nav>
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
-
         <?php  if (isset($_SESSION['user'])) : ?>
-        <strong><?php echo $_SESSION['user']['username']; ?></strong>
-        <small>
-          <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
-        </small>
-        <?php endif ?>
-
+        <?php echo $_SESSION['user']['username']; ?>
+        <div class="text-left">
+          <p class="h4">
+            <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+          <?php endif ?>
+          </p>
+        </div>
       </h1>
     </div>
         <div class="row justify-content-center align-items-center">
@@ -67,19 +67,19 @@ if (is_logged_in() == false) {
           <form action="process.php" method="POST">
               <div class="form-group">
                   <label for="req-movie">Movie Name</label>
-                  <input type="text" name="movie_name" class="form-control" placeholder="Enter movie name">
+                  <input type="text" name="movie_name" class="form-control" placeholder="Enter movie name" required>
               </div>
               <div class="form-group">
                   <label for="req-mpaa">MPAA</label>
-                  <input type="text" name="mpaa" class="form-control" placeholder="Enter MPAA">
+                  <input type="text" name="mpaa" class="form-control" placeholder="Enter MPAA" required>
               </div>
               <div class="form-group">
                   <label for="req-duration">Duration</label>
-                  <input type="text" name="running_time" class="form-control" placeholder="Enter duration">
+                  <input type="text" name="running_time" class="form-control" placeholder="Enter duration" required>
               </div>
               <div class="form-group">
                   <label for="req-release">Release</label>
-                  <input type="text" name="release_date" class="form-control" placeholder="Enter release year">
+                  <input type="text" name="release_date" class="form-control" placeholder="Enter release year" required>
               </div>
               <div class="form-group row justify-content-center align-items-center">
                   <button type="submit" name="submit" class="update-req-btn btn btn-dark">Submit</button>

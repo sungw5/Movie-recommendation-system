@@ -1,9 +1,7 @@
-
-
 <?php
 session_start();
 
-$con = mysqli_connect("localhost", "root", "password", "users");
+$con = mysqli_connect("localhost", "root", "", "users");
 if(!$con) {
   echo "Could not connect";
 }

@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 
 $input = filter_input_array(INPUT_POST);
 
-$mysqli = new mysqli('localhost', 'user', 'password', 'database');
+$mysqli = new mysqli('localhost', 'user', '', 'database');
 
 if (mysqli_connect_errno()) {
   echo json_encode(array('mysqli' => 'Failed to connect to MySQL: ' . mysqli_connect_error()));

@@ -6,7 +6,7 @@
 <?php
 if (is_admin() == false) {
   $_SESSION['msg'] = "You must log in first";
-  header('location: ../login.php');
+  header('location: ../login/login.html');
 }
 ?>
 <html lang="en">
@@ -34,7 +34,7 @@ if (is_admin() == false) {
             <a class="nav-link" href="users.php">Users<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="review_request.php">Review-Requests <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="review_request.php">Review Requests <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -49,20 +49,20 @@ if (is_admin() == false) {
     </nav>
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
-
         <?php  if (isset($_SESSION['user'])) : ?>
-        <strong><?php echo $_SESSION['user']['username']; ?></strong>
-        <small>
-          <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
-        </small>
-        <?php endif ?>
-
+        <?php echo $_SESSION['user']['username']; ?>
+        <div class="text-left">
+          <p class="h4">
+            <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+          <?php endif ?>
+          </p>
+        </div>
       </h1>
     </div>
     <div class="container">
         <div class="row">
           <div class="col">
-              <table class="table table-bordered" id="id-table">
+              <table class="table table-bordered table-striped" id="id-table">
                   <thead class="thead-dark">
                       <tr>
                           <th>Rank</th>
@@ -199,6 +199,7 @@ if (is_admin() == false) {
                                 <a href="#edit<?php echo $id;?>" data-toggle="modal">
                                     <button type='button' class='btn btn-info btn-sm'><span class='fa fa-edit' aria-hidden='true'></span></button>
                                 </a>
+                                <br /><br />
                                 <a href="#delete<?php echo $id;?>" data-toggle="modal">
                                     <button type='button' class='btn btn-danger btn-sm'><span class='fa fa-trash' aria-hidden='true'></span></button>
                                 </a>
@@ -206,14 +207,14 @@ if (is_admin() == false) {
 
 
                               <!--Edit Item Modal -->
-                              <div id="edit<?php echo $id; ?>" class="modal fade" role="dialog">
+                              <div id="edit<?php echo $id; ?>" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="edit<?php echo $id; ?>" aria-hidden="true">
                                   <form action="adminhomepage_function.php" method="post" class="form-horizontal" role="form">
                                       <div class="modal-dialog modal-lg">
                                           <!-- Modal content-->
-                                          <div class="modal-content">
+                                          <div class="modal-content" >
                                               <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                  <h4 class="modal-title">Edit Item</h4>
+                                                <h4 class="modal-title">Edit Item</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                               </div>
                                               <!-- body -->
                                               <div class="modal-body">
@@ -221,26 +222,29 @@ if (is_admin() == false) {
                                                   
                                                   <div class="form-group">
                                                       <!-- movie name -->
-                                                      <label class="control-label col-sm-2" for="movie_name">Movie name:</label>
+                                                      <label class="control-label col-sm-2 font-weight-bold" for="movie_name">Movie name</label>
                                                       <div class="col-sm-4">
                                                           <input type="text" class="form-control" id="movie_name" name="movie_name" value="<?php echo $movie_name; ?>" placeholder="Movie name" required autofocus> </div>
                                                       <!-- US distributor -->
-                                                      <label class="control-label col-sm-2" for="us_distributor">Distributer:</label>
+                                                      <br />
+                                                      <label class="control-label col-sm-2 font-weight-bold" for="us_distributor">Distributor</label>
                                                       <div class="col-sm-4">
                                                           <input type="text" class="form-control" id="us_distributor" name="us_distributor" value="<?php echo $us_distributor; ?>" placeholder="Distributor" required> </div>
                                                   </div>
 
                                                 <div class="form-group">
                                                     <!-- Running time -->
-                                                    <label class="control-label col-sm-2" for="running_time">Duration:</label>
+                                                    <label class="control-label col-sm-2 font-weight-bold" for="running_time">Duration</label>
                                                     <div class="col-sm-4">
                                                         <input type="text" class="form-control" id="running_time" name="running_time" value="<?php echo $running_time; ?>" placeholder="Running time" required autofocus> </div>
                                                     <!-- Lifetime gross -->
-                                                    <label class="control-label col-sm-2" for="lifetime_gross">Gross:</label>
+                                                    <br />
+                                                    <label class="control-label col-sm-2 font-weight-bold" for="lifetime_gross">Gross</label>
                                                     <div class="col-sm-4">
                                                         <input type="text" class="form-control" id="lifetime_gross" name="lifetime_gross" value="<?php echo $lifetime_gross; ?>" placeholder="Lifetime gross" required> </div>
                                                     <!-- MPAA -->
-                                                    <label class="control-label col-sm-2" for="mpaa">MPAA:</label>
+                                                    <br />
+                                                    <label class="control-label col-sm-2 font-weight-bold" for="mpaa">MPAA</label>
                                                     <div class="col-sm-4">
                                                         <input type="text" class="form-control" id="mpaa" name="mpaa" value="<?php echo $mpaa; ?>" placeholder="MPAA" required> </div>
                                                 </div>
@@ -248,15 +252,14 @@ if (is_admin() == false) {
                                                   
                                               </div>
                                               <div class="modal-footer">
-                                                  <button type="submit" class="btn btn-info" name="update_item"><span class="fa fa-edit"></span> Edit</button>
+                                                  <button type="submit" class="btn btn-info" name="update_item"><span class="fa fa-edit"></span> Save changes</button>
                                                   <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="fa fa-remove-circle"></span> Cancel</button>
                                               </div>
                                           </div>
                                       </div>
                                   </form>
                               </div>
-
-
+                  
                               <!--Delete Modal -->
                               <div id="delete<?php echo $id; ?>" class="modal fade" role="dialog">
                                   <div class="modal-dialog">
@@ -264,12 +267,12 @@ if (is_admin() == false) {
                                           <!-- Modal content-->
                                           <div class="modal-content">
                                               <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                   <h4 class="modal-title">Delete</h4>
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                                               </div>
                                               <div class="modal-body">
                                                   <input type="hidden" name="delete_id" value="<?php echo $id; ?>">
-                                                  <div class="alert alert-danger">Are you Sure you want Delete <strong>
+                                                  <div class="alert alert-danger">Are you sure you want delete <strong>
                                                           <?php echo $movie_name; ?>?</strong> </div>
                                                   <div class="modal-footer">
                                                       <button type="submit" name="delete" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
@@ -293,22 +296,7 @@ if (is_admin() == false) {
 
     <script type="text/javascript">
       $(document).ready(function () {
-        $("#id-table").DataTable({
-          "processing":true,
-          "serverSide":true,
-          "order":[],
-          "ajax":{
-            "url":"fetch.php",
-            method:"POST"
-          },
-          "columnDefs":[{
-              "target":[0.3.4],
-              "orderable":false
-            }
-          ],
-
-
-        });
+        $("#id-table").DataTable();
       });
     </script>
   </body>
