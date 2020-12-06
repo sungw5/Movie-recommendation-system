@@ -1,5 +1,5 @@
 <?php
-$con = new mysqli('localhost', 'root', "", "users") or die(mysqli_error($con));
+$con = new mysqli('localhost', 'root', "password", "users") or die(mysqli_error($con));
 
 if(isset($_POST['submit'])) {
     $movie_name = $_POST['movie_name'];
