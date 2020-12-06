@@ -1,15 +1,40 @@
 <?php
-$mysqli = new mysqli('localhost', 'root', "", "users") or die(mysqli_error($mysqli));
+$con = new mysqli('localhost', 'root', "password", "users") or die(mysqli_error($con));
 
-if(isset($_POST['submit'])){
-    $movie_title = $_POST['movie_title'];
-    $total_gross = $_POST['total_gross'];
+if(isset($_POST['submit'])) {
+    $movie_name = $_POST['movie_name'];
+    $mpaa = $_POST['mpaa'];
     $running_time = $_POST['running_time'];
     $release_date = $_POST['release_date'];
 
-    // Try adding a CREATE TABLE command before this to avoid manually adding tables
-    $mysqli->query("INSERT INTO movie_recommendation_db (movie_title, total_gross, running_time, release_date) 
-                    VALUES('$movie_title', '$total_gross', '$running_time', '$release_date');") or die($mysqli->error);
+
+    $search = 'select 1 from `movie_recommendation_db` LIMIT 1';
+    $is_table_exists = mysqli_query($con, $search);
+
+    if($is_table_exists !== FALSE)
+    {
+        // don't create the table if the table already exists
+    }
+    else
+    {
+        $SQL = "CREATE TABLE movie_recommendation_db (
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            movie_name VARCHAR(255) NOT NULL,
+            mpaa VARCHAR(100) NOT NULL,
+            running_time VARCHAR(100) NOT NULL,
+            release_date VARCHAR(100) NOT NULL)";
+
+        if(mysqli_query($con, $SQL)) {
+            echo "Table created successfully";
+        } else {
+            echo "ERROR: Could not execute $SQL. " . mysqli_error($con);
+        }
+    }
+
+    
+
+    $con->query("INSERT INTO movie_recommendation_db (movie_name, mpaa, running_time, release_date) 
+                    VALUES('$movie_name', '$mpaa', '$running_time', '$release_date');");
     header("location:../homepage/homepage.php");
 }
 ?>

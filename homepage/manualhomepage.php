@@ -17,7 +17,7 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="../favorites.html">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
@@ -45,7 +45,6 @@
             <a class="btn btn-warning btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Limit
             </a>
-
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <a class="dropdown-item" href="#">Action</a>
             </div>
@@ -118,7 +117,7 @@
                 <form action="process.php" method="POST">
                     <div class="form-group">
                         <label for="req-movie">Movie Name</label>
-                        <input type="text" name="movie_title" class="form-control" placeholder="Enter movie name">
+                        <input type="text" name="movie_name" class="form-control" placeholder="Enter movie name">
                     </div>
                     <div class="form-group">
                         <label for="req-total-gross">Total Gross</label>

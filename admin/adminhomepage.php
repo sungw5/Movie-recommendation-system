@@ -1,12 +1,12 @@
 <?php
-  require 'config.php';
-  require 'process.php';
+  require '../homepage/config.php';
   include('../registration/registration.php');
 ?>
 
 <?php
-if (is_logged_in() == false) {
-  header('location:../login/login.html');
+if (is_admin() == false) {
+  $_SESSION['msg'] = "You must log in first";
+  header('location: ../login.php');
 }
 ?>
 <html lang="en">
@@ -28,16 +28,13 @@ if (is_logged_in() == false) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Movies<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="users.php">Users<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="review_request.php">Review-Requests <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle mr-5" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +62,7 @@ if (is_logged_in() == false) {
     <div class="container">
         <div class="row">
           <div class="col">
-              <table class="table table-striped" id="id-table">
+              <table class="table table-bordered" id="id-table">
                   <thead class="thead-dark">
                       <tr>
                           <th>Rank</th>
@@ -74,9 +71,9 @@ if (is_logged_in() == false) {
                           <th>Duration</th>
                           <th>Lifetime Gross</th>
                           <th>MPAA</th>
-                          <th>Crew</th>
+                          <th>Crew</th> 
                           <th>Box Office Data</th>
-                          <th>Favorite</th>
+                          <th>Action</th>
                       </tr>
                       <tbody>
                       <?php
@@ -85,7 +82,15 @@ if (is_logged_in() == false) {
                         FROM movie_summary M, bo_summary B
                         WHERE M.movie_id = B.movie_id
                         LIMIT 30");
-                        while ($row = mysqli_fetch_array($results)) {?>
+                        while ($row = mysqli_fetch_array($results)) {
+                          $id = $row['movie_id'];
+                          $movie_name = $row['movie_name'];
+                          $us_distributor = $row['us_distributor'];
+                          $running_time = $row['running_time'];
+                          $lifetime_gross = $row['lifetime_gross'];
+                          $mpaa = $row['mpaa'];
+                          ?>
+                          
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
                               <td><?php echo $row["movie_name"]; ?></td>
@@ -118,7 +123,7 @@ if (is_logged_in() == false) {
                                               </tr>
                                               <tbody>
                                                 <?php
-                                                  $new_results = $con -> query("SELECT DISTINCT C.member_name, C.role
+                                                  $new_results = $con -> query("SELECT C.member_name, C.role
                                                   FROM movie_crew_data C
                                                   WHERE C.movie_id = '$movie_id'
                                                   ORDER BY C.member_name");
@@ -190,13 +195,94 @@ if (is_logged_in() == false) {
                                 </div>
                               </td>
                               <td>
-                                <a type="button" class="btn btn-light" href="#">
-                                  <svg width="2em" height="1.5em" viewBox="0 0 20 20" class="bi bi-heart-fill" fill="red" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                  </svg>
-                                </button>
+                                <!-- action -->
+                                <a href="#edit<?php echo $id;?>" data-toggle="modal">
+                                    <button type='button' class='btn btn-info btn-sm'><span class='fa fa-edit' aria-hidden='true'></span></button>
+                                </a>
+                                <a href="#delete<?php echo $id;?>" data-toggle="modal">
+                                    <button type='button' class='btn btn-danger btn-sm'><span class='fa fa-trash' aria-hidden='true'></span></button>
+                                </a>
                               </td>
+
+
+                              <!--Edit Item Modal -->
+                              <div id="edit<?php echo $id; ?>" class="modal fade" role="dialog">
+                                  <form action="adminhomepage_function.php" method="post" class="form-horizontal" role="form">
+                                      <div class="modal-dialog modal-lg">
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title">Edit Item</h4>
+                                              </div>
+                                              <!-- body -->
+                                              <div class="modal-body">
+                                                  <input type="hidden" name="edit_item_id" value="<?php echo $id; ?>">
+                                                  
+                                                  <div class="form-group">
+                                                      <!-- movie name -->
+                                                      <label class="control-label col-sm-2" for="movie_name">Movie name:</label>
+                                                      <div class="col-sm-4">
+                                                          <input type="text" class="form-control" id="movie_name" name="movie_name" value="<?php echo $movie_name; ?>" placeholder="Movie name" required autofocus> </div>
+                                                      <!-- US distributor -->
+                                                      <label class="control-label col-sm-2" for="us_distributor">Distributer:</label>
+                                                      <div class="col-sm-4">
+                                                          <input type="text" class="form-control" id="us_distributor" name="us_distributor" value="<?php echo $us_distributor; ?>" placeholder="Distributor" required> </div>
+                                                  </div>
+
+                                                <div class="form-group">
+                                                    <!-- Running time -->
+                                                    <label class="control-label col-sm-2" for="running_time">Duration:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="running_time" name="running_time" value="<?php echo $running_time; ?>" placeholder="Running time" required autofocus> </div>
+                                                    <!-- Lifetime gross -->
+                                                    <label class="control-label col-sm-2" for="lifetime_gross">Gross:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="lifetime_gross" name="lifetime_gross" value="<?php echo $lifetime_gross; ?>" placeholder="Lifetime gross" required> </div>
+                                                    <!-- MPAA -->
+                                                    <label class="control-label col-sm-2" for="mpaa">MPAA:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="mpaa" name="mpaa" value="<?php echo $mpaa; ?>" placeholder="MPAA" required> </div>
+                                                </div>
+
+                                                  
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="submit" class="btn btn-info" name="update_item"><span class="fa fa-edit"></span> Edit</button>
+                                                  <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="fa fa-remove-circle"></span> Cancel</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+
+
+                              <!--Delete Modal -->
+                              <div id="delete<?php echo $id; ?>" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+                                      <form action="adminhomepage_function.php" method="post">
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title">Delete</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <input type="hidden" name="delete_id" value="<?php echo $id; ?>">
+                                                  <div class="alert alert-danger">Are you Sure you want Delete <strong>
+                                                          <?php echo $movie_name; ?>?</strong> </div>
+                                                  <div class="modal-footer">
+                                                      <button type="submit" name="delete" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-remove-circle"></span> NO</button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
                           </tr>
+
+                          
                         <?php } ?>
                       </tbody>
                   </thead>
@@ -207,8 +293,24 @@ if (is_logged_in() == false) {
 
     <script type="text/javascript">
       $(document).ready(function () {
-        $("#id-table").DataTable();
+        $("#id-table").DataTable({
+          "processing":true,
+          "serverSide":true,
+          "order":[],
+          "ajax":{
+            "url":"fetch.php",
+            method:"POST"
+          },
+          "columnDefs":[{
+              "target":[0.3.4],
+              "orderable":false
+            }
+          ],
+
+
+        });
       });
     </script>
   </body>
 </html>
+
