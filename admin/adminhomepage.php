@@ -8,6 +8,32 @@ if (is_admin() == false) {
   $_SESSION['msg'] = "You must log in first";
   header('location: ../login.php');
 }
+
+
+
+
+   if(isset($_POST['movie_name'])){
+      $movie_name = $_POST['movie_name'];
+      $movie_id = $_POST['movie_id'];
+
+      $fav_query = "INSERT INTO user_favorites (movie_id, custom_rate, movie_name) VALUES('$movie_id', '1', '$movie_name')";
+      mysqli_query($con, $fav_query);
+
+      $_SESSION['success'] = "Movie registration successful";
+      // directs to admin's user management page
+      header("location:../admin/users.php");
+    }
+
+
+    if(isset($_POST['remove_movie_id'])){
+      $remove_movie_id = $_POST['remove_movie_id'];
+      $query = "DELETE FROM user_favorites WHERE movie_id='".$remove_movie_id."'";
+      mysqli_query($con, $query);
+      header("location:../admin/users.php");
+    }
+
+
+    
 ?>
 <html lang="en">
   <head>
@@ -62,7 +88,7 @@ if (is_admin() == false) {
     <div class="container">
         <div class="row">
           <div class="col">
-              <table class="table table-bordered" id="id-table">
+              <table class="table table-striped" id="id-table">
                   <thead class="thead-dark">
                       <tr>
                           <th>Rank</th>
@@ -71,9 +97,9 @@ if (is_admin() == false) {
                           <th>Duration</th>
                           <th>Lifetime Gross</th>
                           <th>MPAA</th>
-                          <th>Crew</th> 
+                          <th>Crew</th>
                           <th>Box Office Data</th>
-                          <th>Action</th>
+                          <th>Favorite</th>
                       </tr>
                       <tbody>
                       <?php
@@ -83,14 +109,9 @@ if (is_admin() == false) {
                         WHERE M.movie_id = B.movie_id
                         LIMIT 30");
                         while ($row = mysqli_fetch_array($results)) {
-                          $id = $row['movie_id'];
-                          $movie_name = $row['movie_name'];
-                          $us_distributor = $row['us_distributor'];
-                          $running_time = $row['running_time'];
-                          $lifetime_gross = $row['lifetime_gross'];
-                          $mpaa = $row['mpaa'];
                           ?>
-                          
+
+
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
                               <td><?php echo $row["movie_name"]; ?></td>
@@ -195,94 +216,36 @@ if (is_admin() == false) {
                                 </div>
                               </td>
                               <td>
-                                <!-- action -->
-                                <a href="#edit<?php echo $id;?>" data-toggle="modal">
-                                    <button type='button' class='btn btn-info btn-sm'><span class='fa fa-edit' aria-hidden='true'></span></button>
-                                </a>
-                                <a href="#delete<?php echo $id;?>" data-toggle="modal">
-                                    <button type='button' class='btn btn-danger btn-sm'><span class='fa fa-trash' aria-hidden='true'></span></button>
-                                </a>
+                                <a type="button" class="btn btn-light" href="#">
+                                <?php
+
+
+                                $fav_results = $con->query("SELECT * FROM user_favorites");
+                       
+
+
+                               $favourite_movies = array();
+                                while ($fav_row = mysqli_fetch_array($fav_results)) { 
+                                  if($fav_row['movie_id']==$movie_id){
+                                    array_push($favourite_movies, $movie_id);
+                                  }
+                                }
+
+
+                                  if (in_array($movie_id, $favourite_movies)){
+                                    $color = "red";
+                                  }else{
+                                      $color = "grey";
+                                    }
+
+                                                          ?>
+                                  <svg width="2em" height="1.5em" viewBox="0 0 20 20" class="bi bi-heart-fill"      <?php if($color=="grey"){ ?> onclick="addFavourites('<?php echo $movie_id; ?>','<?php echo $movie_name; ?>')" <?php } else{ ?> onclick="removeFavourites('<?php echo $movie_id; ?>')" <?php } ?>     fill="<?php echo $color; ?>" xmlns="http://www.w3.org/2000/svg">
+                                  
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                  </svg>
+                                </button>
                               </td>
-
-
-                              <!--Edit Item Modal -->
-                              <div id="edit<?php echo $id; ?>" class="modal fade" role="dialog">
-                                  <form action="adminhomepage_function.php" method="post" class="form-horizontal" role="form">
-                                      <div class="modal-dialog modal-lg">
-                                          <!-- Modal content-->
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                  <h4 class="modal-title">Edit Item</h4>
-                                              </div>
-                                              <!-- body -->
-                                              <div class="modal-body">
-                                                  <input type="hidden" name="edit_item_id" value="<?php echo $id; ?>">
-                                                  
-                                                  <div class="form-group">
-                                                      <!-- movie name -->
-                                                      <label class="control-label col-sm-2" for="movie_name">Movie name:</label>
-                                                      <div class="col-sm-4">
-                                                          <input type="text" class="form-control" id="movie_name" name="movie_name" value="<?php echo $movie_name; ?>" placeholder="Movie name" required autofocus> </div>
-                                                      <!-- US distributor -->
-                                                      <label class="control-label col-sm-2" for="us_distributor">Distributer:</label>
-                                                      <div class="col-sm-4">
-                                                          <input type="text" class="form-control" id="us_distributor" name="us_distributor" value="<?php echo $us_distributor; ?>" placeholder="Distributor" required> </div>
-                                                  </div>
-
-                                                <div class="form-group">
-                                                    <!-- Running time -->
-                                                    <label class="control-label col-sm-2" for="running_time">Duration:</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" class="form-control" id="running_time" name="running_time" value="<?php echo $running_time; ?>" placeholder="Running time" required autofocus> </div>
-                                                    <!-- Lifetime gross -->
-                                                    <label class="control-label col-sm-2" for="lifetime_gross">Gross:</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" class="form-control" id="lifetime_gross" name="lifetime_gross" value="<?php echo $lifetime_gross; ?>" placeholder="Lifetime gross" required> </div>
-                                                    <!-- MPAA -->
-                                                    <label class="control-label col-sm-2" for="mpaa">MPAA:</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" class="form-control" id="mpaa" name="mpaa" value="<?php echo $mpaa; ?>" placeholder="MPAA" required> </div>
-                                                </div>
-
-                                                  
-                                              </div>
-                                              <div class="modal-footer">
-                                                  <button type="submit" class="btn btn-info" name="update_item"><span class="fa fa-edit"></span> Edit</button>
-                                                  <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="fa fa-remove-circle"></span> Cancel</button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </form>
-                              </div>
-
-
-                              <!--Delete Modal -->
-                              <div id="delete<?php echo $id; ?>" class="modal fade" role="dialog">
-                                  <div class="modal-dialog">
-                                      <form action="adminhomepage_function.php" method="post">
-                                          <!-- Modal content-->
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                  <h4 class="modal-title">Delete</h4>
-                                              </div>
-                                              <div class="modal-body">
-                                                  <input type="hidden" name="delete_id" value="<?php echo $id; ?>">
-                                                  <div class="alert alert-danger">Are you Sure you want Delete <strong>
-                                                          <?php echo $movie_name; ?>?</strong> </div>
-                                                  <div class="modal-footer">
-                                                      <button type="submit" name="delete" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
-                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-remove-circle"></span> NO</button>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </form>
-                                  </div>
-                              </div>
                           </tr>
-
-                          
                         <?php } ?>
                       </tbody>
                   </thead>
@@ -293,24 +256,40 @@ if (is_admin() == false) {
 
     <script type="text/javascript">
       $(document).ready(function () {
-        $("#id-table").DataTable({
-          "processing":true,
-          "serverSide":true,
-          "order":[],
-          "ajax":{
-            "url":"fetch.php",
-            method:"POST"
-          },
-          "columnDefs":[{
-              "target":[0.3.4],
-              "orderable":false
-            }
-          ],
-
-
-        });
+        $("#id-table").DataTable();
       });
+
+      function addFavourites(movie_id, movie_name){
+
+        var formData = {movie_name: movie_name, movie_id: movie_id};
+        $.ajax({
+            url : location.href,
+            type: "POST",
+            data : formData,
+            success: function(response)
+            {
+                alert('Added to Favourites');
+                location.reload();
+            }
+            
+        });
+      }
+      function removeFavourites(remove_movie_id){
+        var removeData = {remove_movie_id: remove_movie_id};
+
+        alert(removeData);
+        $.ajax({
+            url : location.href,
+            type: "POST",
+            data : removeData,
+            success: function(response)
+            {
+                alert('Removed from Favourites');
+                location.reload();
+            }
+            
+        });
+      }
     </script>
   </body>
 </html>
-

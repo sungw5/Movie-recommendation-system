@@ -4,8 +4,6 @@ require '../homepage/config.php';
 
 session_start();
 
-$con->begin_transaction();
-
 $user_id = 0;
 
 $input = filter_input_array(INPUT_POST);
@@ -16,29 +14,17 @@ $user_type = mysqli_real_escape_string($con, $input["user_type"]);
 if($input['action'] === 'edit'){
 
     $query = "UPDATE user_registration SET username='$username', password='$password', user_type='$user_type' WHERE user_id='".$input['user_id']."'";
-    if($con->query($query) == TRUE){
-        $_SESSION['message'] = "Record has been updated!";
-        $con->commit();
-    }
-    else{
-        $con->rollback();
-    }
-    
+    mysqli_query($con, $query);
 
 }
 
 if($input['action'] === 'delete'){
     $query = "DELETE FROM user_registration WHERE user_id='".$input['user_id']."'";
-    if($con->query($query) == TRUE){
-        $con->commit();
-        $_SESSION['message'] = "Record has been deleted!";
-        header("location: users.php");
-    }
-    else{
-        $con->rollback();
-    }
-    
-    
+    mysqli_query($con, $query);
+
+    $_SESSION['message'] = "Record has been deleted!";
+    header("location: users.php");
+
 }
 
 echo json_encode($input);

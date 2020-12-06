@@ -2,28 +2,18 @@
     require '../homepage/config.php';
     session_start(); 
 
-    // Start transaction
-    $con->begin_transaction();
 
     // Delete
     if(isset($_GET['delete'])){
 
-
         $id = $_GET['delete'];
 
-        $query = $con->query("DELETE FROM movie_recommendation_db WHERE id=$id") or die($con->error());
+        $con->query("DELETE FROM movie_recommendation_db WHERE id=$id") or die($con->error());
 
-        if($query == TRUE){
-            $_SESSION['message'] = "Record has been deleted!";
-            $_SESSION['msg_type'] = "danger";
+        $_SESSION['message'] = "Record has been deleted!";
+        $_SESSION['msg_type'] = "danger";
 
-            $con->commit();
-            header("location: review_request.php");
-        }
-        else{
-            $con->rollback();
-            echo "Error deleting the request: " . $con->error;
-        }
+        header("location: review_request.php");
 
     }
 
@@ -49,7 +39,6 @@
         $con->query("DELETE FROM movie_recommendation_db WHERE id=$id") or die($con->error());
 
         header("location: review_request.php");
-        $con->commit();
 
 
     }

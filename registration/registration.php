@@ -2,7 +2,7 @@
 <?php
 session_start();
 
-$con = mysqli_connect("localhost", "root", "password");
+$con = mysqli_connect("localhost", "root", "");
 if(!$con) echo "Could not connect";
 
 mysqli_select_db($con, "users");
