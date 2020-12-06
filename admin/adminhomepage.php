@@ -62,7 +62,7 @@ if (is_admin() == false) {
     <div class="container">
         <div class="row">
           <div class="col">
-              <table class="table table-striped" id="id-table">
+              <table class="table table-bordered" id="id-table">
                   <thead class="thead-dark">
                       <tr>
                           <th>Rank</th>
@@ -85,6 +85,10 @@ if (is_admin() == false) {
                         while ($row = mysqli_fetch_array($results)) {
                           $id = $row['movie_id'];
                           $movie_name = $row['movie_name'];
+                          $us_distributor = $row['us_distributor'];
+                          $running_time = $row['running_time'];
+                          $lifetime_gross = $row['lifetime_gross'];
+                          $mpaa = $row['mpaa'];
                           ?>
                           
                           <tr>
@@ -192,13 +196,65 @@ if (is_admin() == false) {
                               </td>
                               <td>
                                 <!-- action -->
-                                <!-- <a href="#edit<?php echo $id;?>" data-toggle="modal">
-                                    <button type='button' class='btn btn-warning btn-sm'><span class='fa fa-edit' aria-hidden='true'></span></button>
-                                </a> -->
+                                <a href="#edit<?php echo $id;?>" data-toggle="modal">
+                                    <button type='button' class='btn btn-info btn-sm'><span class='fa fa-edit' aria-hidden='true'></span></button>
+                                </a>
                                 <a href="#delete<?php echo $id;?>" data-toggle="modal">
-                                    <button type='button' class='btn btn-danger'><span class='fa fa-trash' aria-hidden='true'></span></button>
+                                    <button type='button' class='btn btn-danger btn-sm'><span class='fa fa-trash' aria-hidden='true'></span></button>
                                 </a>
                               </td>
+
+
+                              <!--Edit Item Modal -->
+                              <div id="edit<?php echo $id; ?>" class="modal fade" role="dialog">
+                                  <form action="adminhomepage_function.php" method="post" class="form-horizontal" role="form">
+                                      <div class="modal-dialog modal-lg">
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title">Edit Item</h4>
+                                              </div>
+                                              <!-- body -->
+                                              <div class="modal-body">
+                                                  <input type="hidden" name="edit_item_id" value="<?php echo $id; ?>">
+                                                  
+                                                  <div class="form-group">
+                                                      <!-- movie name -->
+                                                      <label class="control-label col-sm-2" for="movie_name">Movie name:</label>
+                                                      <div class="col-sm-4">
+                                                          <input type="text" class="form-control" id="movie_name" name="movie_name" value="<?php echo $movie_name; ?>" placeholder="Movie name" required autofocus> </div>
+                                                      <!-- US distributor -->
+                                                      <label class="control-label col-sm-2" for="us_distributor">Distributer:</label>
+                                                      <div class="col-sm-4">
+                                                          <input type="text" class="form-control" id="us_distributor" name="us_distributor" value="<?php echo $us_distributor; ?>" placeholder="Distributor" required> </div>
+                                                  </div>
+
+                                                <div class="form-group">
+                                                    <!-- Running time -->
+                                                    <label class="control-label col-sm-2" for="running_time">Duration:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="running_time" name="running_time" value="<?php echo $running_time; ?>" placeholder="Running time" required autofocus> </div>
+                                                    <!-- Lifetime gross -->
+                                                    <label class="control-label col-sm-2" for="lifetime_gross">Gross:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="lifetime_gross" name="lifetime_gross" value="<?php echo $lifetime_gross; ?>" placeholder="Lifetime gross" required> </div>
+                                                    <!-- MPAA -->
+                                                    <label class="control-label col-sm-2" for="mpaa">MPAA:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="mpaa" name="mpaa" value="<?php echo $mpaa; ?>" placeholder="MPAA" required> </div>
+                                                </div>
+
+                                                  
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="submit" class="btn btn-info" name="update_item"><span class="fa fa-edit"></span> Edit</button>
+                                                  <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="fa fa-remove-circle"></span> Cancel</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
 
 
                               <!--Delete Modal -->
