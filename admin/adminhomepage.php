@@ -296,22 +296,7 @@ if (is_admin() == false) {
 
     <script type="text/javascript">
       $(document).ready(function () {
-        $("#id-table").DataTable({
-          "processing":true,
-          "serverSide":true,
-          "order":[],
-          "ajax":{
-            "url":"fetch.php",
-            method:"POST"
-          },
-          "columnDefs":[{
-              "target":[0.3.4],
-              "orderable":false
-            }
-          ],
-
-
-        });
+        $("#id-table").DataTable();
       });
     </script>
   </body>

@@ -74,19 +74,19 @@ if (is_admin() == false) {
 
         <div class="row">
           <div class="col">
-              <table class="table table-hover table-striped" id="id-table">
-                <thead>
+              <table class="table table-bordered table-striped" id="idtable">
+                <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
                         <th>Movie name</th>
                         <th>MPAA</th>
                         <th>Running Time</th>
                         <th>Release Date</th>
-                        <th colspan="2">Action</th>
+                        <th>Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                   
-
                 <!-- Loop to print data in a table -->
                 <?php while($row = $result->fetch_assoc()): ?>
 
@@ -96,25 +96,20 @@ if (is_admin() == false) {
                     <td><?php echo $row['mpaa'] ?></td>
                     <td><?php echo $row['running_time'] ?></td>
                     <td><?php echo $row['release_date'] ?></td>
-
-                    <!-- <td><button type="submit" name="accept" class="btn btn-sm btn-success">Accept</button></td> -->
                     <td><a href="review_request_function.php?accept=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Accept</a></td>
                     <td><a href="review_request_function.php?delete=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger">Delete</a></td>
-
                   </tr>
 
                 <?php endwhile ?>
               </table>
             </div>
         </div>
-
     </div>
     
-
-    <script>
-      // $(document).ready( function () {
-      //     $('#id-table').DataTable();
-      // } );
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#idtable').DataTable();
+      });
     </script>
   </body>
 </html>
