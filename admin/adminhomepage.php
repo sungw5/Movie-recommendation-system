@@ -71,9 +71,9 @@ if (is_admin() == false) {
                           <th>Duration</th>
                           <th>Lifetime Gross</th>
                           <th>MPAA</th>
-                          <th>Crew</th>
+                          <th>Crew</th> 
                           <th>Box Office Data</th>
-                          <th>Favorite</th>
+                          <th>Action</th>
                       </tr>
                       <tbody>
                       <?php
@@ -82,7 +82,11 @@ if (is_admin() == false) {
                         FROM movie_summary M, bo_summary B
                         WHERE M.movie_id = B.movie_id
                         LIMIT 30");
-                        while ($row = mysqli_fetch_array($results)) {?>
+                        while ($row = mysqli_fetch_array($results)) {
+                          $id = $row['movie_id'];
+                          $movie_name = $row['movie_name'];
+                          ?>
+                          
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
                               <td><?php echo $row["movie_name"]; ?></td>
@@ -187,13 +191,42 @@ if (is_admin() == false) {
                                 </div>
                               </td>
                               <td>
-                                <a type="button" class="btn btn-light" href="#">
-                                  <svg width="2em" height="1.5em" viewBox="0 0 20 20" class="bi bi-heart-fill" fill="red" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                  </svg>
-                                </button>
+                                <!-- action -->
+                                <!-- <a href="#edit<?php echo $id;?>" data-toggle="modal">
+                                    <button type='button' class='btn btn-warning btn-sm'><span class='fa fa-edit' aria-hidden='true'></span></button>
+                                </a> -->
+                                <a href="#delete<?php echo $id;?>" data-toggle="modal">
+                                    <button type='button' class='btn btn-danger'><span class='fa fa-trash' aria-hidden='true'></span></button>
+                                </a>
                               </td>
+
+
+                              <!--Delete Modal -->
+                              <div id="delete<?php echo $id; ?>" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+                                      <form action="adminhomepage_function.php" method="post">
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title">Delete</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <input type="hidden" name="delete_id" value="<?php echo $id; ?>">
+                                                  <div class="alert alert-danger">Are you Sure you want Delete <strong>
+                                                          <?php echo $movie_name; ?>?</strong> </div>
+                                                  <div class="modal-footer">
+                                                      <button type="submit" name="delete" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-remove-circle"></span> NO</button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
                           </tr>
+
+                          
                         <?php } ?>
                       </tbody>
                   </thead>
@@ -204,8 +237,24 @@ if (is_admin() == false) {
 
     <script type="text/javascript">
       $(document).ready(function () {
-        $("#id-table").DataTable();
+        $("#id-table").DataTable({
+          "processing":true,
+          "serverSide":true,
+          "order":[],
+          "ajax":{
+            "url":"fetch.php",
+            method:"POST"
+          },
+          "columnDefs":[{
+              "target":[0.3.4],
+              "orderable":false
+            }
+          ],
+
+
+        });
       });
     </script>
   </body>
 </html>
+
