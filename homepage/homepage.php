@@ -8,6 +8,25 @@
 if (is_logged_in() == false) {
   header('location:../login/login.html');
 }
+if(isset($_POST['movie_name'])){
+      $movie_name = $_POST['movie_name'];
+      $movie_id = $_POST['movie_id'];
+
+      $fav_query = "INSERT INTO user_favorites (movie_id, custom_rate, movie_name) VALUES('$movie_id', '1', '$movie_name')";
+      mysqli_query($con, $fav_query);
+
+      $_SESSION['success'] = "Movie registration successful";
+      // directs to admin's user management page
+      header("location:../admin/users.php");
+    }
+
+
+    if(isset($_POST['remove_movie_id'])){
+      $remove_movie_id = $_POST['remove_movie_id'];
+      $query = "DELETE FROM user_favorites WHERE movie_id='".$remove_movie_id."'";
+      mysqli_query($con, $query);
+      header("location:../admin/users.php");
+    }
 ?>
 <html lang="en">
   <head>
@@ -52,17 +71,16 @@ if (is_logged_in() == false) {
     </nav>
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
+
         <?php  if (isset($_SESSION['user'])) : ?>
-        <?php echo $_SESSION['user']['username']; ?>
-        <div class="text-left">
-          <p class="h4">
-            <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
-          <?php endif ?>
-          </p>
-        </div>
+        <strong><?php echo $_SESSION['user']['username']; ?></strong>
+        <small>
+          <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+        </small>
+        <?php endif ?>
+
       </h1>
     </div>
-
     <div class="container">
         <div class="row">
           <div class="col">
@@ -85,7 +103,7 @@ if (is_logged_in() == false) {
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
                         WHERE M.movie_id = B.movie_id
-                        LIMIT 20");
+                        LIMIT 30");
                         while ($row = mysqli_fetch_array($results)) {?>
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
@@ -192,10 +210,25 @@ if (is_logged_in() == false) {
                               </td>
                               <td>
                                 <a type="button" class="btn btn-light" href="#">
-                                  <svg width="2em" height="1.5em" viewBox="0 0 20 20" class="bi bi-heart-fill" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                  <?php
+                                $fav_results = $con->query("SELECT * FROM user_favorites");
+                                $favourite_movies = array();
+                                while ($fav_row = mysqli_fetch_array($fav_results)) { 
+                                  if($fav_row['movie_id']==$movie_id){
+                                    array_push($favourite_movies, $movie_id);
+                                  }
+                                }
+                                if (in_array($movie_id, $favourite_movies)){
+                                    $color = "red";
+                                }else{
+                                    $color = "grey";
+                                }
+
+                                                          ?>
+                                  <svg width="2em" height="1.5em" viewBox="0 0 20 20" class="bi bi-heart-fill"      <?php if($color=="grey"){ ?> onclick="addFavourites('<?php echo $movie_id; ?>','<?php echo $movie_name; ?>')" <?php } else{ ?> onclick="removeFavourites('<?php echo $movie_id; ?>')" <?php } ?>     fill="<?php echo $color; ?>" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                                   </svg>
-                                </a>
+                                </button>
                               </td>
                           </tr>
                         <?php } ?>
@@ -210,6 +243,35 @@ if (is_logged_in() == false) {
       $(document).ready(function () {
         $("#id-table").DataTable();
       });
+      function addFavourites(movie_id, movie_name){
+
+        var formData = {movie_name: movie_name, movie_id: movie_id};
+        $.ajax({
+            url : location.href,
+            type: "POST",
+            data : formData,
+            success: function(response)
+            {
+                alert('Added to Favourites');
+                location.reload();
+            }
+            
+        });
+      }
+      function removeFavourites(remove_movie_id){
+        var removeData = {remove_movie_id: remove_movie_id};
+        $.ajax({
+            url : location.href,
+            type: "POST",
+            data : removeData,
+            success: function(response)
+            {
+                alert('Removed from Favourites');
+                location.reload();
+            }
+            
+        });
+      }
     </script>
   </body>
 </html>
