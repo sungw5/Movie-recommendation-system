@@ -115,7 +115,7 @@ if(isset($_POST['movie_name'])){
                               <td>      
                                 <?php $movie_id = $row["movie_id"]; ?>    
                                 <?php $movie_name = $row["movie_name"]; ?>
-
+                                
                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_<?php echo $movie_id?>">
                                   Crew 
                                 </button>
