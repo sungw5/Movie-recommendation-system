@@ -55,29 +55,37 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="card-deck">
-
-
-                        <?php
-
-
-                        $fav_results = $con->query("SELECT movie_name FROM user_favorites");
-                       
-                        while ($fav_row = mysqli_fetch_array($fav_results)) { ?>
-                          <div class="card">
-                            <!-- <img src="..." class="card-img-top" alt="..."> -->
-                            <div class="card-body">
-                              <h5 class="card-title"><?php echo $fav_row['movie_name']; ?></h5>
-                              <p class="card-text"></p>
-                            </div>
-                            <div class="card-footer">
-                             <i class="fa fa-heart" style="color:red" aria-hidden="true"></i>
-                            </div>
-                          </div><?php 
-                        } ?>
-
-
-
+          <?php
+          $fav_results = $con->query("SELECT movie_name FROM user_favorites");
+         
+          while ($fav_row = mysqli_fetch_array($fav_results)) { ?>
+            <div class="card">
+              <!-- <img src="..." class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $fav_row['movie_name']; ?></h5>
+                <p class="card-text"></p>
+              </div>
+              <div class="card-footer">
+               <i class="fa fa-heart" style="color:red" aria-hidden="true"></i>
+              </div>
+            </div><?php 
+          } ?>
         </div>
+
+       <?php
+
+         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
+               $url = "https://";   
+          else  
+               $url = "http://";   
+          // Append the host(domain name, ip) to the URL.   
+          $url.= $_SERVER['HTTP_HOST'];   
+          
+          // Append the requested resource location to the URL   
+          $url.=  dirname($_SERVER['PHP_SELF']);   
+       
+      ?>
+      <a href="<?php echo $url.'/homepage.php'; ?> " class="btn btn-primary" >Add More </a>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
