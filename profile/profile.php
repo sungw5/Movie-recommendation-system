@@ -1,5 +1,6 @@
 <?php
-	require "../homepage/config.php";
+  require "../homepage/config.php";
+  $user = $_SESSION['user']['username'];
 	$username = 'root';
 	$password = '';
 	$host = 'localhost';
@@ -52,13 +53,13 @@
     </div>
       
     <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mr-4">
+        <div class="row justify-content-center">
+          <div class="col">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <?php
                   try {
                       $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-                      $sql = 'SELECT U.userid,name,email,phone,photo_path FROM logins L,users U Where L.loginid =1 AND L.userid=U.userid';
+                      $sql = "SELECT user_id, name, email, phone, photo_path FROM user_registration WHERE username='$user'";
                       $q = $pdo->query($sql);
                       $q->setFetchMode(PDO::FETCH_ASSOC);
                   } 
@@ -66,16 +67,16 @@
                   die("Could not connect to the database $dbname :" . $e->getMessage());
                   }
                   $row = $q->fetch();
-                  $userid = $row['userid']; 
+                  $userid = $row['user_id']; 
                   $name = $row['name'];
                   $email = $row['email'];
                   $phone = $row['phone'];
                   $photo_path = $row['photo_path'];
                   ?>
                   <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
-                    <form action="/cmpsc431w-movie-recommendation-system-main/profile/edit.php">
+                    <form action="/cmpsc431w-movie-recommendation-system/profile/edit.php">
                     User ID:<br>
-                    <input type="text" name="userid" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
+                    <input type="text" name="user_id" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
                     <br>
                     Name:<br>                                      
                     <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>"disabled="disabled">

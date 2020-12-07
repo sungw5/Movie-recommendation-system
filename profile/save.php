@@ -1,5 +1,6 @@
  <?php
 	require "../homepage/config.php";
+	$user = $_SESSION['user']['username'];
 	$username = 'root';
 	$password = '';
 	$host = 'localhost';
@@ -8,16 +9,15 @@
 
 <!DOCTYPE html>
 <html>  
-		
+
 	<?php 
-		echo "Change information: <br>"; 
-		echo "Userid:   ". $_POST["userid"]."<br>";
-		echo "Name:   ". $_POST["name"]."<br>";
-		echo "Email:  ". $_POST["email"]."<br>";	
-		echo "Phone:  ". $_POST["phone"]."<br>";
+		$userid = $_POST["user_id"];
+		$name = $_POST["name"];
+		$email = $_POST["email"];	
+		$phone = $_POST["phone"];
 		
-		$sql='Update users set name = "';
-		$sql= $sql . $_POST["name"]. '", email= "'.$_POST["email"].'", phone="'.$_POST["phone"].'" where userid = "'.$_POST["userid"].'"' ;
+		$sql = "UPDATE user_registration SET name='$name', email='$email', phone='$phone'  
+						WHERE username = '$user'";
 	
 		try {
 			$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -29,10 +29,10 @@
 			$imgType = array("png","jpg","jpeg");
 			if($typeArr[0]== "image"){
 				if(in_array($typeArr[1], $imgType)){	
-						$path = "photo/".$_POST["userid"].".".$typeArr[1];
+						$path = "photo/".$_POST["user_id"].".".$typeArr[1];
 					move_uploaded_file($file["tmp_name"], $path);
 
-					$sql_photo='Update users set photo_path = "';
+					$sql_photo="UPDATE user_registration SET photo_path = '' WHERE username = '$user'";
 					$sql_photo= $sql_photo . $path. '"' ;
 					$conn->exec($sql_photo);
 				}
@@ -42,12 +42,7 @@
 		echo $sql . "<br>" . $e->getMessage();
 		}
 		$conn = null;
-		echo "Successful";
+		echo "Update succesfull!";
+		header("refresh:3; url=http://localhost/cmpsc431w-movie-recommendation-system/profile/profile.php");
 	?>
-		<p>You will be redirected in 3 seconds</p>
-		<script>
-			var timer = setTimeout(function() {
-				window.location='profile.php'
-			}, 3000);
-		</script>
 </html>

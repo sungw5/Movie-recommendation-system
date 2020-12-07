@@ -84,7 +84,7 @@ if (is_logged_in() == false) {
                   <button type="submit" name="submit" class="update-req-btn btn btn-dark">Submit</button>
               </div> 
           </form>
-      </div>
+        </div>
       </div>
     </div>
   </body>

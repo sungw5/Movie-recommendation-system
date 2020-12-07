@@ -1,5 +1,6 @@
 <?php
-	require "../homepage/config.php";
+  require "../homepage/config.php";
+  $user = $_SESSION['user']['username'];
 	$username = 'root';
 	$password = '';
 	$host = 'localhost';
@@ -58,7 +59,7 @@
                 <?php
                   try {
                       $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-                      $sql = 'SELECT U.userid,name,email,phone,photo_path FROM logins L,users U Where L.loginid =1 AND L.userid=U.userid';
+                      $sql = "SELECT user_id, name, email, phone, photo_path FROM user_registration WHERE username='$user'";
                       $q = $pdo->query($sql);
                       $q->setFetchMode(PDO::FETCH_ASSOC);
                   } 
@@ -66,7 +67,7 @@
                   die("Could not connect to the database $dbname :" . $e->getMessage());
                   }
                   $row = $q->fetch();
-                  $userid = $row['userid']; 
+                  $userid = $row['user_id']; 
                   $name = $row['name'];
                   $email = $row['email'];
                   $phone = $row['phone'];
@@ -74,13 +75,13 @@
                   ?>
                       
                   <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
-                  <form action="/cmpsc431w-movie-recommendation-system-main/profile/save.php" method = "post" enctype="multipart/form-data">
+                  <form action="/cmpsc431w-movie-recommendation-system/profile/save.php" method = "post" enctype="multipart/form-data">
                     <input type="file" name="photo" class="text-center center-block file-upload">
                     <br>
                     <br>
                     User ID:<br>
                     <?php echo htmlspecialchars($userid) ?>
-                    <input type="hidden" name="userid" value="<?php echo htmlspecialchars($userid) ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($userid) ?>">
                     <br><br>
                     Name:<br>                                      
                     <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>">
