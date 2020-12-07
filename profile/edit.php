@@ -80,7 +80,7 @@
           ?>
           
           <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
-          <form action="save.php" method="POST">
+          <form action="save.php" method="POST" enctype="multipart/form-data">
             <input type="file" name="photo" class="text-center center-block file-upload"><br /><br />
               <div class="form-group">
                   <label for="req-mpaa">User ID</label>
