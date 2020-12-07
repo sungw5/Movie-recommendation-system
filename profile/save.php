@@ -11,11 +11,13 @@
 <html>  
 
 	<?php 
+	if(isset($_POST['submit'])) {
 		$userid = $_POST["user_id"];
 		$name = $_POST["name"];
 		$email = $_POST["email"];	
 		$phone = $_POST["phone"];
 		
+		echo $userid;
 		$sql = "UPDATE user_registration SET name='$name', email='$email', phone='$phone'  
 						WHERE username = '$user'";
 	
@@ -43,6 +45,7 @@
 		}
 		$conn = null;
 		echo "Update succesfull!";
-		header("refresh:3; url=http://localhost/cmpsc431w-movie-recommendation-system/profile/profile.php");
+		header("refresh:2; url=http://localhost/cmpsc431w-movie-recommendation-system/profile/profile.php");
+	}
 	?>
 </html>
