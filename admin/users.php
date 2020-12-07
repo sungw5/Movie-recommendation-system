@@ -5,7 +5,7 @@
 
 <?php
 if (is_admin() == false) {
-  $_SESSION['msg'] = "You must log in first";
+  $_SESSION['msg'] = "You must log in as an admin first";
   header('location: ../login/login.html');
 }
 ?>
@@ -18,13 +18,10 @@ if (is_admin() == false) {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-  
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-    <!-- table edit -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-tabledit@1.0.0/jquery.tabledit.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../assets/tabledit/jquery.tabledit.min.js"></script>
   </head>
@@ -53,7 +50,6 @@ if (is_admin() == false) {
       </div>
     </nav>
 
-    <!-- Greetings -->
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
         <?php  if (isset($_SESSION['user'])) : ?>
@@ -72,11 +68,9 @@ if (is_admin() == false) {
     ?>
     
     <div class="container">
-
-        <form action="../registration/admin_create_user.html">
+        <form action="../registration/admin_registration.html">
             <input class="btn btn-outline-primary" type="submit" value="Create new user" />
         </form>
-
         <div class="row">
           <div class="col">
               <table id="myTable" class="table table-bordered table-striped">
@@ -90,18 +84,13 @@ if (is_admin() == false) {
                     </tr>
                 </thead>
                   
-
-                <!-- Loop to print data in a table -->
                 <?php while($row = $result->fetch_assoc()): ?>
-
                   <tr>
                     <td><?php echo $row['user_id'] ?></td>
                     <td><?php echo $row['username'] ?></td>
                     <td><?php echo $row['password'] ?></td>
                     <td><?php echo $row['user_type'] ?></td>
-                  
                   </tr>
-
                 <?php endwhile ?>
               </table>
             </div>
@@ -109,7 +98,7 @@ if (is_admin() == false) {
     </div>
     
     <script>
-      $(document).ready(function(){
+      $(document).ready(function() {
           $('#myTable').Tabledit({
               url:'users_function.php',
               columns: {
@@ -117,10 +106,10 @@ if (is_admin() == false) {
                   editable: [[1, 'username'], [2, 'password'], [3, 'user_type']]
               },
               restoreButton:false,
-              onSuccess:function(data, textStatus, jqXHR){
-                  if(data.action == 'delete'){
-                      $('#'+data.user_id).remove();
-                  }
+              onSuccess:function(data, textStatus, jqXHR) {
+                  if(data.action == 'delete') {
+                      $('#'+data.user_id).remove();  
+                  }  
               },
                   buttons: {
                   edit: {

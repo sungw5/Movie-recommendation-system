@@ -1,6 +1,5 @@
 <?php
   require 'config.php';
-  require 'process.php';
   include('../registration/registration.php');
 ?>
 
@@ -8,22 +7,23 @@
 if (is_logged_in() == false) {
   header('location:../login/login.html');
 }
-if(isset($_POST['movie_name'])){
+
+$username = $_SESSION['user']['username'];
+
+if(isset($_POST['movie_name'])) {
       $movie_name = $_POST['movie_name'];
       $movie_id = $_POST['movie_id'];
 
-      $fav_query = "INSERT INTO user_favorites (movie_id, custom_rate, movie_name) VALUES('$movie_id', '1', '$movie_name')";
+      $fav_query = "INSERT INTO user_favorites (username, movie_id, movie_name) VALUES('$username', '$movie_id', '$movie_name')";
       mysqli_query($con, $fav_query);
 
       $_SESSION['success'] = "Movie registration successful";
-      // directs to admin's user management page
       header("location:../admin/users.php");
     }
 
-
-    if(isset($_POST['remove_movie_id'])){
+    if(isset($_POST['remove_movie_id'])) {
       $remove_movie_id = $_POST['remove_movie_id'];
-      $query = "DELETE FROM user_favorites WHERE movie_id='".$remove_movie_id."'";
+      $query = "DELETE FROM user_favorites WHERE movie_id='".$remove_movie_id."' AND username='".$username."'";
       mysqli_query($con, $query);
       header("location:../admin/users.php");
     }
@@ -211,7 +211,7 @@ if(isset($_POST['movie_name'])){
                               <td>
                                 <a type="button" class="btn btn-light" href="#">
                                   <?php
-                                    $fav_results = $con->query("SELECT * FROM user_favorites");
+                                    $fav_results = $con->query("SELECT * FROM user_favorites WHERE username = '$username'");
                                     $favourite_movies = array();
                                     while ($fav_row = mysqli_fetch_array($fav_results)) { 
                                       if($fav_row['movie_id']==$movie_id){
@@ -226,9 +226,9 @@ if(isset($_POST['movie_name'])){
                                   ?>
                                   <svg width="2em" height="1.5em" viewBox="0 0 20 20" class="bi bi-heart-fill"      
                                     <?php if($color=="grey"){ ?> 
-                                      onclick="addFavourites('<?php echo $movie_id; ?>','<?php echo $movie_name; ?>')" 
+                                      onclick="addFavourites('<?php echo $movie_id; ?>','<?php echo $movie_name; ?>', '<?php echo $username ?>')" 
                               <?php } else { ?> 
-                                      onclick="removeFavourites('<?php echo $movie_id; ?>')" 
+                                      onclick="removeFavourites('<?php echo $movie_id; ?>', '<?php echo $username ?>')" 
                               <?php } ?>     
                                       fill="<?php echo $color; ?>" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
@@ -250,29 +250,29 @@ if(isset($_POST['movie_name'])){
       });
 
       // Consider changing to complete SQL instead of AJAX
-      function addFavourites(movie_id, movie_name){
-        var formData = {movie_name: movie_name, movie_id: movie_id};
+      function addFavourites(movie_id, movie_name, username){
+        var formData = {movie_name: movie_name, movie_id: movie_id, username: username};
         $.ajax({
             url : location.href,
             type: "POST",
             data : formData,
             success: function(response)
             {
-                alert('Added to Favourites');
-                location.reload();
+              alert('Added to Favourites');
+              location.reload();
             }
         });
       }
-      function removeFavourites(remove_movie_id){
-        var removeData = {remove_movie_id: remove_movie_id};
+      function removeFavourites(remove_movie_id, username){
+        var removeData = {remove_movie_id: remove_movie_id, username: username};
         $.ajax({
             url : location.href,
             type: "POST",
             data : removeData,
             success: function(response)
             {
-                alert('Removed from Favourites');
-                location.reload();
+              alert('Removed from Favourites');
+              location.reload();
             }
             
         });

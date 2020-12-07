@@ -1,13 +1,9 @@
 <?php
 
-
 require '../homepage/config.php';
-
-session_start();
 
 // Start transaction
 $con->begin_transaction();
-
 
 //Edit items
 if(isset($_POST['update_item'])){
@@ -53,7 +49,4 @@ if(isset($_POST['delete'])){
         echo "Error deleting record: " . $con->error;
       }
   }
-
-
-
 ?>

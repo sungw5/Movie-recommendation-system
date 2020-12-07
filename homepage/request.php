@@ -1,6 +1,5 @@
 <?php
   require 'config.php';
-  require 'process.php';
   include('../registration/registration.php');
 ?>
 

@@ -18,13 +18,12 @@ if (is_admin() == false) {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-  
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-
   </head>
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -50,7 +49,6 @@ if (is_admin() == false) {
       </div>
     </nav>
 
-    <!-- Greetings -->
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
           <?php  if (isset($_SESSION['user'])) : ?>
@@ -64,14 +62,12 @@ if (is_admin() == false) {
         </h1>
     </div>
 
-
     <?php
       $result = $con->query("SELECT * FROM movie_recommendation_db");
     ?>
     
     <div class="container">
         <h3 class="d-flex justify-content-center">Movie Requests</h3>
-
         <div class="row">
           <div class="col">
               <table class="table table-bordered table-striped" id="idtable">
@@ -86,10 +82,8 @@ if (is_admin() == false) {
                         <th>Action</th>
                     </tr>
                 </thead>
-                  
-                <!-- Loop to print data in a table -->
-                <?php while($row = $result->fetch_assoc()): ?>
 
+                <?php while($row = $result->fetch_assoc()): ?>
                   <tr>
                     <td><?php echo $row['id'] ?></td>
                     <td><?php echo $row['movie_name'] ?></td>
@@ -99,7 +93,6 @@ if (is_admin() == false) {
                     <td><a href="review_request_function.php?accept=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Accept</a></td>
                     <td><a href="review_request_function.php?delete=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger">Delete</a></td>
                   </tr>
-
                 <?php endwhile ?>
               </table>
             </div>
