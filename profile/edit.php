@@ -75,35 +75,27 @@
                       
                   <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
                   <form action="/cmpsc431w-movie-recommendation-system-main/profile/save.php" method = "post" enctype="multipart/form-data">
-      
-                  <input type="file" name="photo" class="text-center center-block file-upload">
-                  
-                  <br>
-                  <br>
-                  User ID:<br>
-                  <?php echo htmlspecialchars($userid) ?>
-                  <input type="hidden" name="userid" value="<?php echo htmlspecialchars($userid) ?>">
-                  <br><br>
-                  Name:<br>                                      
-                  <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>">
-                    <br><br>                                       
-                  Email:<br>
-                  <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
+                    <input type="file" name="photo" class="text-center center-block file-upload">
+                    <br>
+                    <br>
+                    User ID:<br>
+                    <?php echo htmlspecialchars($userid) ?>
+                    <input type="hidden" name="userid" value="<?php echo htmlspecialchars($userid) ?>">
                     <br><br>
-                  Phone:<br>
-                  <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"> 
-                  <br><br>
-                  <input type="submit" value="Save">
+                    Name:<br>                                      
+                    <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>">
+                    <br><br>                                       
+                    Email:<br>
+                    <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
+                    <br><br>
+                    Phone:<br>
+                    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"> 
+                    <br><br>
+                    <input type="submit" value="Save">
                   </form> 
                </div>   
           </div>
         </div>
     </div>
-    
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $("#id-table").DataTable();
-      });
-    </script>
   </body>
 </html>

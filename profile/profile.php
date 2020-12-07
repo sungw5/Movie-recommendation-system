@@ -73,30 +73,24 @@
                   $photo_path = $row['photo_path'];
                   ?>
                   <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
-                  <form action="/cmpsc431w-movie-recommendation-system-main/profile/edit.php">
-                  User ID:<br>
-                  <input type="text" name="userid" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
-                  <br>
-                  Name:<br>                                      
-                  <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>"disabled="disabled">
-                    <br>                                        
-                  Email:<br>
-                  <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>"disabled="disabled">
+                    <form action="/cmpsc431w-movie-recommendation-system-main/profile/edit.php">
+                    User ID:<br>
+                    <input type="text" name="userid" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
                     <br>
-                  Phone:<br>
-                  <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"disabled="disabled"> 
-                  <br><br>
-                  <input type="submit" value="Edit">
+                    Name:<br>                                      
+                    <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>"disabled="disabled">
+                      <br>                                        
+                    Email:<br>
+                    <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>"disabled="disabled">
+                      <br>
+                    Phone:<br>
+                    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"disabled="disabled"> 
+                    <br><br>
+                    <input type="submit" value="Edit">
                   </form> 
                </div>   
           </div>
         </div>
     </div>
-    
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $("#id-table").DataTable();
-      });
-    </script>
   </body>
 </html>
