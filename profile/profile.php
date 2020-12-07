@@ -1,3 +1,10 @@
+<?php
+	require "../homepage/config.php";
+	$username = 'root';
+	$password = '';
+	$host = 'localhost';
+	$dbname = 'users';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,52 +51,43 @@
       <h1 class="display-4">Profile</h1>
     </div>
       
-
- 
     <div class="container">
         <div class="row">
           <div class="col-lg-8 mr-4">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                 <?php
-                                        ini_set('display_errors', 1);
-                                        ini_set('display_startup_errors', 1);
-                                        error_reporting(E_ALL);
-                                        $username = 'root';
-                                        $password = '';
-                                        $host = 'localhost';
-                                        $dbname = 'cmpsc431';
-                                    try {
-                                        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-                                        $sql = 'SELECT U.userid,name,email,phone,photo_path FROM logins L,users U Where L.loginid =1 AND L.userid=U.userid';
-                                        $q = $pdo->query($sql);
-                                        $q->setFetchMode(PDO::FETCH_ASSOC);
-                                    } 
-                                    catch (PDOException $e) {
-                                    die("Could not connect to the database $dbname :" . $e->getMessage());
-                                    }
-                                    $row = $q->fetch();
-                                    $userid = $row['userid']; 
-                                    $name = $row['name'];
-                                    $email = $row['email'];
-                                    $phone = $row['phone'];
-                                    $photo_path = $row['photo_path'];
-                                    ?>
-                                        <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
-                                        <form action="/cmpsc431w-movie-recommendation-system-main/profile/edit.php">
-                                        User ID:<br>
-                                       <input type="text" name="userid" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
-                                        <br>
-                                        Name:<br>                                      
-                                        <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>"disabled="disabled">
-                                         <br>                                        
-                                        Email:<br>
-                                        <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>"disabled="disabled">
-                                         <br>
-                                        Phone:<br>
-                                        <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"disabled="disabled"> 
-                                        <br><br>
-                                        <input type="submit" value="Edit">
-                                        </form> 
+                <?php
+                  try {
+                      $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+                      $sql = 'SELECT U.userid,name,email,phone,photo_path FROM logins L,users U Where L.loginid =1 AND L.userid=U.userid';
+                      $q = $pdo->query($sql);
+                      $q->setFetchMode(PDO::FETCH_ASSOC);
+                  } 
+                  catch (PDOException $e) {
+                  die("Could not connect to the database $dbname :" . $e->getMessage());
+                  }
+                  $row = $q->fetch();
+                  $userid = $row['userid']; 
+                  $name = $row['name'];
+                  $email = $row['email'];
+                  $phone = $row['phone'];
+                  $photo_path = $row['photo_path'];
+                  ?>
+                  <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
+                  <form action="/cmpsc431w-movie-recommendation-system-main/profile/edit.php">
+                  User ID:<br>
+                  <input type="text" name="userid" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
+                  <br>
+                  Name:<br>                                      
+                  <input type="text" name="name" value="<?php echo htmlspecialchars($name) ?>"disabled="disabled">
+                    <br>                                        
+                  Email:<br>
+                  <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>"disabled="disabled">
+                    <br>
+                  Phone:<br>
+                  <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"disabled="disabled"> 
+                  <br><br>
+                  <input type="submit" value="Edit">
+                  </form> 
                </div>   
           </div>
         </div>
@@ -102,6 +100,3 @@
     </script>
   </body>
 </html>
-
-
-
