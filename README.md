@@ -16,7 +16,8 @@ All project files will be inside of `/var/www/html` folder
 
 ### To access MySQL in the terminal
 `mysql -u 431group -p`
- password:  #`password`
+
+ password:`password`
 
 ### To run the project on a web browser
 Navigate [here](http://cmpsc431-s3-g-14.vmhost.psu.edu/homepage/homepage.php)
