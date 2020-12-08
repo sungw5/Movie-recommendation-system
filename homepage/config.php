@@ -7,10 +7,10 @@
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 
-  $db = "users";
-  $servername = "localhost";
-  $mysql_username = "root";
-  $mysql_password = "";
+  $db = "431group";
+  $servername = "CMPSC431-S3-G-14.vmhost.psu.edu";
+  $mysql_username = "431group_db";
+  $mysql_password = "password";
 
   try {
   $con = mysqli_connect($servername, $mysql_username, $mysql_password);
