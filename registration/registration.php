@@ -40,7 +40,7 @@ function register() {
 
   if($count >= 1) {
     echo "Username already exists";
-    header("refresh:3; url=http://cmpsc431-s3-g-14.vmhost.psu.edu/login/login.html");
+    header("refresh:3; url=http://localhost/cmpsc431w-movie-recommendation-system/login/login.html");
   }
   else {
     if(isset($_POST['user_type'])) {
