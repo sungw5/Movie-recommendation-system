@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,7 +51,7 @@
                                         $mysql_username = 'root';
                                         $mysql_password = '';
                                         $host = 'localhost';
-                                        $dbname = 'cmpsc431';
+                                        $dbname = 'users';
                                     try {
                                         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $mysql_username, $mysql_password);
                                         $username =  $_GET['username'];

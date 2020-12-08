@@ -1,11 +1,11 @@
- <?php
-	 ini_set('display_errors', 1);
+<?php
+		 ini_set('display_errors', 1);
          ini_set('display_startup_errors', 1);
          error_reporting(E_ALL);
          $mysql_username = 'root';
          $mysql_password = '';
          $host = 'localhost';
-         $dbname = 'cmpsc431';	
+         $dbname = 'users';	
 ?>
 <!DOCTYPE html>
 <html>  
@@ -26,9 +26,7 @@
 					$conn = new PDO("mysql:host=$host;dbname=$dbname", $mysql_username, $mysql_password);
 					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$conn->exec($sql);
-					
-					
-					
+
 					$file = $_FILES["photo"];	
 					$typeArr = explode("/", $file["type"]);
 					$imgType = array("png","jpg","jpeg");
