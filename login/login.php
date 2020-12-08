@@ -33,7 +33,7 @@ function login() {
 
   } else if ($count == 0) {
     echo "Invalid username or password";
-    header("refresh:3; url=http://localhost/cmpsc431w-movie-recommendation-system/login/login.html");
+    header("refresh:3; url=http://cmpsc431-s3-g-14.vmhost.psu.edu/login/login.html");
   }
 }
 ?>
