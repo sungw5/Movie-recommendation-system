@@ -26,3 +26,6 @@ Navigate [here](http://cmpsc431-s3-g-14.vmhost.psu.edu/homepage/homepage.php)
 1. Get the SQL file exported from phpMyAdmin or in [Google Drive](https://drive.google.com/drive/u/0/folders/1WYMBHZyiO05u6fxfW2Z009btc3yXLZJ0) which has all table information and make sure the file name is `431group_db.sql`
 
 2. `mysql -u 431group -p 431group_db < 431group_db.sql`
+
+### SERVER URL
+`http://cmpsc431-s3-g-14.vmhost.psu.edu/login/login.html`
