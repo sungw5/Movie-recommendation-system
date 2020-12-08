@@ -1,0 +1,1 @@
+User's photo is saved in this folder.
