@@ -4,7 +4,7 @@
 Use code from branch `main` and navigate to [here](http://localhost/cmpsc431w-movie-recommendation-system/login/login.html)
 
 ### To run on PSU server
-Use code from branch `server_test`and navigate to [here](http://cmpsc431-s3-g-14.vmhost.psu.edu/homepage/homepage.php)
+Use code from branch `server_test` and navigate to [here](http://cmpsc431-s3-g-14.vmhost.psu.edu/homepage/homepage.php)
 
 ### PSU DB and Server Details
 ```
