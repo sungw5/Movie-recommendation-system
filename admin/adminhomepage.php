@@ -81,7 +81,7 @@ if (is_admin() == false) {
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
                         WHERE M.movie_id = B.movie_id
-                        LIMIT 30");
+                        LIMIT 50");
                         while ($row = mysqli_fetch_array($results)) {
                           $id = $row['movie_id'];
                           $movie_name = $row['movie_name'];
