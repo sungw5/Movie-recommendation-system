@@ -20,9 +20,9 @@ if(isset($_POST['submit'])) {
     $result = mysqli_query($con, $check);
     $count = mysqli_num_rows($result);
 
-    if($count == 1) {
-        echo "Movie data already exists!";
-        header("refresh:3; url= http://localhost/cmpsc431w-movie-recommendation-system/homepage/request.php");
+    if($count > 0) {
+        echo "Movie already exists!";
+        header("refresh:3; url=http://cmpsc431-s3-g-14.vmhost.psu.edu/homepage/request.php");
     } else {
         if($is_table_exists == TRUE) {}
         else {
