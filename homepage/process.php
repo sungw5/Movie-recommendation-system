@@ -22,7 +22,7 @@ if(isset($_POST['submit'])) {
 
     if($count > 0) {
         echo "Movie already exists!";
-        header("refresh:3; url= http://localhost/cmpsc431w-movie-recommendation-system/homepage/request.php");
+        header("refresh:3; url=http://cmpsc431-s3-g-14.vmhost.psu.edu/homepage/request.php");
     } else {
         if($is_table_exists == TRUE) {}
         else {
