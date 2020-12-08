@@ -1,13 +1,9 @@
 <?php
-  require 'config.php';
-  include('../registration/registration.php');
+  require "../homepage/config.php";
+  $user = $_SESSION['user']['username'];
 ?>
 
-<?php
-if (is_logged_in() == false) {
-  header('location:../login/login.html');
-}
-?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -26,13 +22,16 @@ if (is_logged_in() == false) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="homepage.php">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../homepage/homepage.php">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="favorites.php">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="../homepage/request.php">Update <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <a class="nav-link" href="../profile/profile.php">
@@ -48,42 +47,56 @@ if (is_logged_in() == false) {
       </div>
     </nav>
     <div class="jumbotron">
-      <h1 class="display-4">Welcome, 
-        <?php  if (isset($_SESSION['user'])) : ?>
-        <?php echo $_SESSION['user']['username']; ?>
-        <div class="text-left">
-          <p class="h4">
-            <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
-          <?php endif ?>
-          </p>
-        </div>
-      </h1>
+      <h1 class="display-4">Profile</h1>
+    </div>
+      
     </div>
         <div class="row justify-content-center align-items-center">
-          <h3>Submit a Movie Request</h3>
+          <h3>Profile</h3>
         </div>
         <br />
       <div class="row justify-content-center align-items-center">
         <div class="col-10 col-md-8 col-lg-6">
-          <form action="process.php" method="POST">
+        <?php
+          try {
+              $pdo = new PDO("mysql:host=$servername;dbname=$db", $mysql_username, $mysql_password);
+              $sql = "SELECT user_id, name, email, phone, password FROM user_registration WHERE username='$user'";
+              $q = $pdo->query($sql);
+              $q->setFetchMode(PDO::FETCH_ASSOC);
+          } 
+          catch (PDOException $e) {
+          die("Could not connect to the database $db :" . $e->getMessage());
+          }
+          $row = $q->fetch();
+          $userid = $row['user_id']; 
+          $name = $row['name'];
+          $email = $row['email'];
+          $phone = $row['phone'];
+          $pwd = $row['password'];
+          ?>
+          <form action="edit.php" method="POST">
               <div class="form-group">
-                  <label for="req-movie">Movie Name</label>
-                  <input type="text" name="movie_name" class="form-control" placeholder="Enter movie name" required>
+                  <label for="req-mpaa">User ID</label>
+                  <input type="text" name="user_id" class="form-control" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
               </div>
               <div class="form-group">
-                  <label for="req-mpaa">MPAA</label>
-                  <input type="text" name="mpaa" class="form-control" placeholder="Enter MPAA" required>
+                  <label for="req-mpaa">Name</label>
+                  <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($name) ?>" disabled="disabled">
               </div>
               <div class="form-group">
-                  <label for="req-duration">Duration</label>
-                  <input type="text" name="running_time" class="form-control" placeholder="Enter duration" required>
+                  <label for="req-duration">Email</label>
+                  <input type="text" name="email" class="form-control" value="<?php echo htmlspecialchars($email) ?>" disabled="disabled">
               </div>
               <div class="form-group">
-                  <label for="req-release">Release</label>
-                  <input type="text" name="release_date" class="form-control" placeholder="Enter release year" required>
+                  <label for="req-release">Phone</label>
+                  <input type="text" name="phone" class="form-control" value="<?php echo htmlspecialchars($phone) ?>" disabled="disabled">
+              </div>
+              <div class="form-group">
+                  <label for="req-release">Password</label>
+                  <input type="password" name="password" class="form-control" value="<?php echo htmlspecialchars($pwd) ?>" disabled="disabled">
               </div>
               <div class="form-group row justify-content-center align-items-center">
-                  <button type="submit" name="submit" class="update-req-btn btn btn-dark">Submit</button>
+                  <button type="submit" name="submit" class="update-req-btn btn btn-dark">Update</button>
               </div> 
           </form>
       </div>
