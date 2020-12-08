@@ -103,7 +103,7 @@ if(isset($_POST['movie_name'])) {
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
                         WHERE M.movie_id = B.movie_id
-                        LIMIT 30");
+                        LIMIT 50");
                         while ($row = mysqli_fetch_array($results)) {?>
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
