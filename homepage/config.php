@@ -1,11 +1,7 @@
 <?php
-  $servername = "CMPSC431-S3-G-14.vmhost.psu.edu";
-  $mysql_username = "431group";
-  $mysql_password = "password";
-  $db = "431group_db";
-  
-  if(!isset($_SESSION)) { 
-    session_start(); 
+
+ if(!isset($_SESSION)) { 
+  session_start(); 
   } 
 
   ini_set('display_errors', 1);

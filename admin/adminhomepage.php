@@ -90,7 +90,11 @@ if (is_admin() == false) {
                         $results = $con -> query("SELECT M.movie_id, M.movie_name, M.running_time, M.us_distributor, M.mpaa, 
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
+<<<<<<< HEAD
                         WHERE M.movie_id = B.movie_id LIMIT 300");
+=======
+                        WHERE M.movie_id = B.movie_id");
+>>>>>>> Display all movies
                         while ($row = mysqli_fetch_array($results)) {
                           $id = $row['movie_id'];
                           $movie_name = $row['movie_name'];

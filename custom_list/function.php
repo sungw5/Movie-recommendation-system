@@ -42,7 +42,7 @@ if(isset($_POST['selectOption'])) {
     
     if($count >= 1) {
         echo "Movie already exists in $custom_type list";
-        header("refresh:3; url=http://localhost/cmpsc431w-movie-recommendation-system/homepage/homepage.php");
+        header("refresh:3; url=http://cmpsc431-s3-g-14.vmhost.psu.edu/homepage/homepage.php");
     }
     else {
         $con->query("INSERT INTO custom_list (username, movie_id, movie_name, custom_type)
