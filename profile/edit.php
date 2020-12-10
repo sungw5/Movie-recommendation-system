@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -44,56 +43,51 @@
         <div class="row">
           <div class="col-lg-8 mr-4">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                 <?php
-                                        ini_set('display_errors', 1);
-                                        ini_set('display_startup_errors', 1);
-                                        error_reporting(E_ALL);
-                                        $mysql_username = 'root';
-                                        $mysql_password = '';
-                                        $host = 'localhost';
-                                        $dbname = 'users';
-                                    try {
-                                        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $mysql_username, $mysql_password);
-                                        $username =  $_GET['username'];
-                                        $sql ='SELECT username,password,email,phone,photo_path FROM user_registration Where username = "'.$username.'"';
-                                        $q = $pdo->query($sql);
-                                        $q->setFetchMode(PDO::FETCH_ASSOC);
-                                    } 
-                                    catch (PDOException $e) {
-                                    die("Could not connect to the database $dbname :" . $e->getMessage());
-                                    }
-                                    $row = $q->fetch();
-                                    $password = $row['password'];
-                                    $email = $row['email'];
-                                    $phone = $row['phone'];
-                                    $photo_path = $row['photo_path'];
-                                   
-                                    
-                                    ?>
-                                       
-                                        <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
-                                        <form action="./save.php" method = "post" enctype="multipart/form-data">
-                           
-                                        <input type="file" name="photo" class="text-center center-block file-upload">
-                                        
-                                        <br>
-                                        <br>
-                                        User ID:<br>
-                                        <?php echo htmlspecialchars($username) ?>
-                                       <input type="hidden" name="username" value="<?php echo htmlspecialchars($username) ?>">
-                                        <br><br>
-                                        Password:<br>                                      
-                                        <input type="text" name="password" value="<?php echo htmlspecialchars($password) ?>">
-                                         <br><br>                                       
-                                        Email:<br>
-                                        <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
-                                         <br><br>
-                                        Phone:<br>
-                                        <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"> 
-                                        <br><br>
-                                        <input type="submit" value="Save">
-                                        </form> 
-
+                <?php
+                  ini_set('display_errors', 1);
+                  ini_set('display_startup_errors', 1);
+                  error_reporting(E_ALL);
+                  $mysql_username = 'root';
+                  $mysql_password = '';
+                  $host = 'localhost';
+                  $dbname = 'users';
+                  try {
+                      $pdo = new PDO("mysql:host=$host;dbname=$dbname", $mysql_username, $mysql_password);
+                      $username =  $_GET['username'];
+                      $sql ='SELECT username,password,email,phone,photo_path FROM user_registration Where username = "'.$username.'"';
+                      $q = $pdo->query($sql);
+                      $q->setFetchMode(PDO::FETCH_ASSOC);
+                  } 
+                  catch (PDOException $e) {
+                  die("Could not connect to the database $dbname :" . $e->getMessage());
+                  }
+                  $row = $q->fetch();
+                  $password = $row['password'];
+                  $email = $row['email'];
+                  $phone = $row['phone'];
+                  $photo_path = $row['photo_path'];
+                  ?>
+                      
+                  <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
+                  <form action="save.php" method = "post" enctype="multipart/form-data">
+                    <input type="file" name="photo" class="text-center center-block file-upload">
+                    <br>
+                    <br>
+                    User ID:<br>
+                    <?php echo htmlspecialchars($username) ?>
+                    <input type="hidden" name="username" value="<?php echo htmlspecialchars($username) ?>">
+                    <br><br>
+                    Password:<br>                                      
+                    <input type="text" name="password" value="<?php echo htmlspecialchars($password) ?>">
+                      <br><br>                                       
+                    Email:<br>
+                    <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
+                      <br><br>
+                    Phone:<br>
+                    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"> 
+                    <br><br>
+                    <input type="submit" value="Save">
+                  </form> 
                </div>   
           </div>
         </div>
@@ -106,6 +100,3 @@
     </script>
   </body>
 </html>
-
-
-

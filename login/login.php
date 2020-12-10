@@ -28,7 +28,7 @@ function login() {
     } else {
       $_SESSION['user'] = $logged_in_user;
       $_SESSION['success']  = "You are now logged in";
-      header("location:../profile/profile.php");
+      header("location:../homepage/homepage.php");
     }
 
   } else if ($count == 0) {

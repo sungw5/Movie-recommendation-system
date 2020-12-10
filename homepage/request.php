@@ -50,7 +50,7 @@ if (is_logged_in() == false) {
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
         <?php  if (isset($_SESSION['user'])) : ?>
-        <?php echo $_SESSION['user']['name']; ?>
+        <?php echo $_SESSION['user']['username']; ?>
         <div class="text-left">
           <p class="h4">
             <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
@@ -86,7 +86,7 @@ if (is_logged_in() == false) {
                   <button type="submit" name="submit" class="update-req-btn btn btn-dark">Submit</button>
               </div> 
           </form>
-        </div>
+      </div>
       </div>
     </div>
   </body>

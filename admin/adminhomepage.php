@@ -50,7 +50,7 @@ if (is_admin() == false) {
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
         <?php  if (isset($_SESSION['user'])) : ?>
-        <?php echo $_SESSION['user']['name']; ?>
+        <?php echo $_SESSION['user']['username']; ?>
         <div class="text-left">
           <p class="h4">
             <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
@@ -81,7 +81,7 @@ if (is_admin() == false) {
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
                         WHERE M.movie_id = B.movie_id
-                        LIMIT 30");
+                        LIMIT 50");
                         while ($row = mysqli_fetch_array($results)) {
                           $id = $row['movie_id'];
                           $movie_name = $row['movie_name'];

@@ -53,7 +53,7 @@ if (is_admin() == false) {
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
         <?php  if (isset($_SESSION['user'])) : ?>
-          <?php echo $_SESSION['user']['name']; ?>
+          <?php echo $_SESSION['user']['username']; ?>
           <div class="text-left">
             <p class="h4">
               <i  style="color: #888;">(logged in as <?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 

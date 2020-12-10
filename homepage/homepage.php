@@ -10,7 +10,6 @@ if (is_logged_in() == false) {
 
 $username = $_SESSION['user']['username'];
 
-
 if(isset($_POST['movie_name'])) {
       $movie_name = $_POST['movie_name'];
       $movie_id = $_POST['movie_id'];
@@ -249,7 +248,6 @@ if(isset($_POST['movie_name'])) {
         $("#id-table").DataTable();
       });
 
-      // Consider changing to complete SQL instead of AJAX
       function addFavourites(movie_id, movie_name, username){
         var formData = {movie_name: movie_name, movie_id: movie_id, username: username};
         $.ajax({
