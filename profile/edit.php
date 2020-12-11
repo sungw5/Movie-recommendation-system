@@ -1,3 +1,16 @@
+<?php
+  require '../homepage/config.php';
+  include('../registration/registration.php');
+?>
+
+<?php
+if (is_logged_in() == false) {
+  header('location:../login/login.html');
+}
+
+$user = $_SESSION['user']['username'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,61 +51,60 @@
     <div class="jumbotron">
       <h1 class="display-4">Edit</h1>
     </div>
-  
-    <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mr-4">
-              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <?php
-                  ini_set('display_errors', 1);
-                  ini_set('display_startup_errors', 1);
-                  error_reporting(E_ALL);
-                  $mysql_username = 'root';
-                  $mysql_password = '';
-                  $host = 'localhost';
-                  $dbname = 'users';
-                  try {
-                      $pdo = new PDO("mysql:host=$host;dbname=$dbname", $mysql_username, $mysql_password);
-                      $username =  $_GET['username'];
-                      $sql ='SELECT username,password,email,phone,photo_path FROM user_registration Where username = "'.$username.'"';
-                      $q = $pdo->query($sql);
-                      $q->setFetchMode(PDO::FETCH_ASSOC);
-                  } 
-                  catch (PDOException $e) {
-                  die("Could not connect to the database $dbname :" . $e->getMessage());
-                  }
-                  $row = $q->fetch();
-                  $password = $row['password'];
-                  $email = $row['email'];
-                  $phone = $row['phone'];
-                  $photo_path = $row['photo_path'];
-                  ?>
-                      
-                  <img id="pic" height="200" width="200" src = "<?php echo htmlspecialchars($photo_path) ?>"/>
-                  <form action="save.php" method = "post" enctype="multipart/form-data">
-                    <input type="file" name="photo" class="text-center center-block file-upload">
-                    <br>
-                    <br>
-                    User ID:<br>
-                    <?php echo htmlspecialchars($username) ?>
-                    <input type="hidden" name="username" value="<?php echo htmlspecialchars($username) ?>">
-                    <br><br>
-                    Password:<br>                                      
-                    <input type="text" name="password" value="<?php echo htmlspecialchars($password) ?>">
-                      <br><br>                                       
-                    Email:<br>
-                    <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
-                      <br><br>
-                    Phone:<br>
-                    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone) ?>"> 
-                    <br><br>
-                    <input type="submit" value="Save">
-                  </form> 
-               </div>   
-          </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-10 col-md-8 col-lg-6">
+        <?php
+          try {
+            $pdo = new PDO("mysql:host=$servername;dbname=$db", $mysql_username, $mysql_password);
+            $sql = 'SELECT username, password, name, email, phone, photo_path FROM user_registration WHERE username = "'.$user.'"';
+            $q = $pdo->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+          } 
+          catch (PDOException $e) {
+            die("Could not connect to the database $dbname :" . $e->getMessage());
+          }
+          $row = $q->fetch();
+          $password = $row['password'];
+          $email = $row['email'];
+          $phone = $row['phone'];
+          $photo_path = $row['photo_path'];
+          $name = $row['name'];
+        ?>
+
+        <div class="row justify-content-center align-items-center">
+          <img id="pic" height="250" width="250" src = "<?php echo htmlspecialchars($photo_path) ?>"/><br />
         </div>
+        <br />
+        <form action="save.php" method="POST" enctype="multipart/form-data">
+          <div class="row justify-content-center align-items-center">
+            <input type="file" name="photo" class="text-center center-block file-upload"><br /><br />
+          </div>
+          <div class="form-group">
+              <label for="req-mpaa">Username</label>
+              <input type="text" name="username" class="form-control" value="<?php echo htmlspecialchars($user) ?>" disabled="disabled"/>
+          </div>
+          <div class="form-group">
+              <label for="req-mpaa">Name</label>
+              <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($name) ?>" />
+          </div>
+          <div class="form-group">
+              <label for="req-duration">Email</label>
+              <input type="text" name="email" class="form-control" value="<?php echo htmlspecialchars($email) ?>" />
+          </div>
+          <div class="form-group">
+              <label for="req-release">Phone</label>
+              <input type="text" name="phone" class="form-control" value="<?php echo htmlspecialchars($phone) ?>" />
+          </div>
+          <div class="form-group">
+              <label for="req-release">Password</label>
+              <input type="password" name="password" class="form-control" value="<?php echo htmlspecialchars($password) ?>" />
+          </div>
+          <div class="form-group row justify-content-center align-items-center">
+              <button type="submit" name="submit" class="update-req-btn btn btn-dark">Save Changes</button>
+          </div> 
+        </form>  
+      </div>
     </div>
-    
     <script type="text/javascript">
       $(document).ready(function () {
         $("#id-table").DataTable();
