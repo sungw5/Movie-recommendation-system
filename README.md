@@ -25,7 +25,10 @@ All project files will be inside of `/var/www/html` folder
 
  password:`password`
 
-### If you want to manually import the database into our group server
+### To use profile picture feature
+Make sure to grant read and write access on your localhost to the file `profile/save.php` and the folder `profile/photo/`
+
+### To manually import the database into our group server
 1. Get the SQL file exported from phpMyAdmin or in [Google Drive](https://drive.google.com/drive/u/0/folders/1WYMBHZyiO05u6fxfW2Z009btc3yXLZJ0) which has all table information and make sure the file name is `431group_db.sql`
 
 2. `mysql -u 431group -p 431group_db < 431group_db.sql`
