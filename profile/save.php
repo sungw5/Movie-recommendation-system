@@ -40,6 +40,7 @@ $user = $_SESSION['user']['username'];
 					$conn->exec($sql_photo);
 				}
 			}
+			header("refresh:3; url= http://localhost/cmpsc431w-movie-recommendation-system/profile/profile.php");
 			header("location: profile.php");
 		}
 		catch(PDOException $e) {

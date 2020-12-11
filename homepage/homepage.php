@@ -73,6 +73,10 @@ if(isset($_POST['movie_name'])) {
     </nav>
     <div class="jumbotron">
       <h1 class="display-4">Welcome, 
+        <?php  if ($_SESSION['user']['user_type'] === "admin") {
+          header("location:../admin/adminhomepage.php");
+        }
+        ?>
         <?php  if (isset($_SESSION['user'])) : ?>
         <?php echo $_SESSION['user']['username']; ?>
         <div class="text-left">
