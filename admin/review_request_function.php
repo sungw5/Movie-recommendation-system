@@ -27,6 +27,7 @@
         $movie_name = $row['movie_name'];
         $mpaa = $row['mpaa'];
         $running_time = $row['running_time'];
+        $release_date = $row['release_date'];
 
 
         $is_data_exists = $con->query("SELECT * FROM movie_summary WHERE movie_id='$id' LIMIT 1") or die($con->error());
@@ -37,6 +38,7 @@
         }
         else{
             $insert = $con->query("INSERT INTO movie_summary (movie_id, movie_name, mpaa, running_time) VALUES('$id', '$movie_name', '$mpaa', '$running_time');") or die($con->error());
+            $insert2 = $con->query("INSERT INTO bo_collections_data (movie_name, release_date) VALUES('$movie_name', '$release_date');") or die($con->error());
             $con->query("DELETE FROM movie_recommendation_db WHERE id=$id") or die($con->error());
         }
 
