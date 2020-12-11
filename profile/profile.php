@@ -1,6 +1,14 @@
 <?php
-  require "../homepage/config.php";
-  $user = $_SESSION['user']['username'];
+  require '../homepage/config.php';
+  include('../registration/registration.php');
+?>
+
+<?php
+if (is_logged_in() == false) {
+  header('location:../login/login.html');
+}
+
+$user = $_SESSION['user']['username'];
 ?>
 
 <!DOCTYPE html>
@@ -49,58 +57,63 @@
     <div class="jumbotron">
       <h1 class="display-4">Profile</h1>
     </div>
-      
-    </div>
-        <div class="row justify-content-center align-items-center">
-          <h3>Profile</h3>
-        </div>
-        <br />
-      <div class="row justify-content-center align-items-center">
-        <div class="col-10 col-md-8 col-lg-6">
+    <div class="row justify-content-center align-items-center">
+      <h3>Profile</h3>
+    </div><br />
+    <div class="row justify-content-center align-items-center">
+      <div class="col-10 col-md-8 col-lg-6">
         <?php
           try {
-              $pdo = new PDO("mysql:host=$servername;dbname=$db", $mysql_username, $mysql_password);
-              $sql = "SELECT user_id, name, email, phone, password FROM user_registration WHERE username='$user'";
-              $q = $pdo->query($sql);
-              $q->setFetchMode(PDO::FETCH_ASSOC);
+            $pdo = new PDO("mysql:host=$servername;dbname=$db", $mysql_username, $mysql_password);
+            $sql = 'SELECT username, password, name, email, phone, photo_path FROM user_registration WHERE username = "'.$user.'"';
+            $q = $pdo->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
           } 
           catch (PDOException $e) {
-          die("Could not connect to the database $db :" . $e->getMessage());
+            die("Could not connect to the database $dbname :" . $e->getMessage());
           }
           $row = $q->fetch();
-          $userid = $row['user_id']; 
-          $name = $row['name'];
+          $password = $row['password'];
           $email = $row['email'];
           $phone = $row['phone'];
-          $pwd = $row['password'];
-          ?>
-          <form action="edit.php" method="POST">
-              <div class="form-group">
-                  <label for="req-mpaa">User ID</label>
-                  <input type="text" name="user_id" class="form-control" value="<?php echo htmlspecialchars($userid) ?>"disabled="disabled">
-              </div>
-              <div class="form-group">
-                  <label for="req-mpaa">Name</label>
-                  <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($name) ?>" disabled="disabled">
-              </div>
-              <div class="form-group">
-                  <label for="req-duration">Email</label>
-                  <input type="text" name="email" class="form-control" value="<?php echo htmlspecialchars($email) ?>" disabled="disabled">
-              </div>
-              <div class="form-group">
-                  <label for="req-release">Phone</label>
-                  <input type="text" name="phone" class="form-control" value="<?php echo htmlspecialchars($phone) ?>" disabled="disabled">
-              </div>
-              <div class="form-group">
-                  <label for="req-release">Password</label>
-                  <input type="password" name="password" class="form-control" value="<?php echo htmlspecialchars($pwd) ?>" disabled="disabled">
-              </div>
-              <div class="form-group row justify-content-center align-items-center">
-                  <button type="submit" name="submit" class="update-req-btn btn btn-dark">Update</button>
-              </div> 
-          </form>
-      </div>
+          $photo_path = $row['photo_path'];
+          $name = $row['name'];
+        ?>
+
+        <div class="row justify-content-center align-items-center">
+          <img id="pic" height="250" width="250" src = "<?php echo htmlspecialchars($photo_path) ?>"/><br />
+        </div>
+        <form action="edit.php" method="POST">
+          <div class="form-group">
+              <label for="req-mpaa">Username</label>
+              <input type="text" name="username" class="form-control" value="<?php echo htmlspecialchars($user) ?>"disabled="disabled">
+          </div>
+          <div class="form-group">
+              <label for="req-mpaa">Name</label>
+              <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($name) ?>" disabled="disabled">
+          </div>
+          <div class="form-group">
+              <label for="req-duration">Email</label>
+              <input type="text" name="email" class="form-control" value="<?php echo htmlspecialchars($email) ?>" disabled="disabled">
+          </div>
+          <div class="form-group">
+              <label for="req-release">Phone</label>
+              <input type="text" name="phone" class="form-control" value="<?php echo htmlspecialchars($phone) ?>" disabled="disabled">
+          </div>
+          <div class="form-group">
+              <label for="req-release">Password</label>
+              <input type="password" name="password" class="form-control" value="<?php echo htmlspecialchars($password) ?>" disabled="disabled">
+          </div>
+          <div class="form-group row justify-content-center align-items-center">
+              <button type="submit" name="submit" class="update-req-btn btn btn-dark">Update</button>
+          </div> 
+        </form>  
       </div>
     </div>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#id-table").DataTable();
+      });
+    </script>
   </body>
 </html>
