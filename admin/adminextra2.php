@@ -29,7 +29,7 @@ if (is_admin() == false) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Movies<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="adminhomepage.php">Movies<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="users.php">Users<span class="sr-only">(current)</span></a>
