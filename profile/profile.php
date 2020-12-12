@@ -136,7 +136,9 @@ $user = $_SESSION['user']['username'];
           <div class="form-group row justify-content-center align-items-center">
               <button type="submit" name="submit" class="update-req-btn btn btn-dark">Update</button>
           </div> 
-        </form>  
+        </form>
+        <div style="padding: 30px" class="row justify-content-md-center">
+        </div>
       </div>
     </div>
     <script type="text/javascript">
