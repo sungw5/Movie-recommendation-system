@@ -261,7 +261,7 @@ if (is_admin() == false) {
                                                   
                                               </div>
                                               <div class="modal-footer">
-                                                  <button type="submit" class="btn btn-info" name="update_item"><span class="fa fa-edit"></span> Save changes</button>
+                                                  <button type="submit" class="btn btn-info" name="update_item2"><span class="fa fa-edit"></span> Save changes</button>
                                                   <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="fa fa-remove-circle"></span> Cancel</button>
                                               </div>
                                           </div>
@@ -284,7 +284,7 @@ if (is_admin() == false) {
                                                   <div class="alert alert-danger">Are you sure you want delete <strong>
                                                           <?php echo $movie_name; ?>?</strong> </div>
                                                   <div class="modal-footer">
-                                                      <button type="submit" name="delete" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
+                                                      <button type="submit" name="delete2" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
                                                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-remove-circle"></span> NO</button>
                                                   </div>
                                               </div>
