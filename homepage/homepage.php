@@ -41,6 +41,8 @@ if(isset($_POST['movie_name'])) {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+    
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -88,6 +90,9 @@ if(isset($_POST['movie_name'])) {
       </h1>
     </div>
     <div class="container">
+        <div class="row justify-content-md-center">
+          <h2>Top 300 Movies <i class="fas fa-film"></i></h2>
+        </div>
         <div class="row">
           <div class="col">
               <table class="table table-striped" id="id-table">
@@ -108,7 +113,7 @@ if(isset($_POST['movie_name'])) {
                         $results = $con -> query("SELECT M.movie_id, M.movie_name, M.running_time, M.us_distributor, M.mpaa, 
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
-                        WHERE M.movie_id = B.movie_id");
+                        WHERE M.movie_id = B.movie_id LIMIT 300");
                         while ($row = mysqli_fetch_array($results)) {?>
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
@@ -247,9 +252,17 @@ if(isset($_POST['movie_name'])) {
               </table>
           </div>
         </div>
+
+      <div style="padding: 50px" class="row justify-content-md-center">
+      <a href="extra.php">More movies</a>
+
+      
+      </div>
     </div>
 
-    <script type="text/javascript">
+    
+
+    <script defer type="text/javascript">
       $(document).ready(function () {
         $("#id-table").DataTable();
       });
