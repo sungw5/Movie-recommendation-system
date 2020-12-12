@@ -67,6 +67,9 @@ if (is_admin() == false) {
       </h1>
     </div>
     <div class="container">
+        <div class="row justify-content-md-center">
+          <h2>Top 300 Movies <i class="fas fa-film"></i></h2>
+        </div>
         <div class="row">
           <div class="col">
               <table class="table table-bordered table-striped" id="id-table">
@@ -298,6 +301,10 @@ if (is_admin() == false) {
               </table>
           </div>
         </div>
+
+      <div style="padding: 50px" class="row justify-content-md-center">
+        <a href="adminextra.php">More movies</a>
+      </div>
     </div>
 
     <script defer type="text/javascript">
