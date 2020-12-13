@@ -19,7 +19,7 @@
             <a class="nav-link" href="../homepage/homepage.php">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
@@ -41,7 +41,7 @@
       </div>
     </nav>
     <div class="jumbotron">
-      <h1 class="display-4">Favorites</h1>
+      <h1 class="display-4">Will Watch</h1>
     </div>
   
     <div class="container">

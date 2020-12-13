@@ -53,7 +53,7 @@ if(isset($_POST['movie_name'])) {
             <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
@@ -102,6 +102,7 @@ if(isset($_POST['movie_name'])) {
                           <th>Crew</th>
                           <th>Box Office Data</th>
                           <th>Favorite</th>
+                          <th>Add To</th>
                       </tr>
                       <tbody>
                       <?php
@@ -240,6 +241,26 @@ if(isset($_POST['movie_name'])) {
                                   </svg>
                                 </a>
                               </td>
+                              <td>
+                              <form action="" method="post">
+                                <select name="Add To:">
+                                  <option value="Add To" disabled selected>Add To</option>
+                                  <option value="Watched">Watched</option>
+                                  <option value="Will Watch">Will Watch</option>
+                                  <option value="Would Recommend">Would Recommend</option>
+                                </select> 
+                              <input type="submit" name="submit" value="Choose Option">
+                              </form>
+                              <?php
+                                if(isset($_POST['submit'])){
+                                if(!empty($_POST['Add To:'])) {
+                                    $selected = $_POST['Add To:']; 
+                                    $message = "You have selected an option";
+                                    echo "<script type='text/javascript'>alert('$message');</script>";
+                              }
+                            }
+                              ?>
+                              </td>
                           </tr>
                         <?php } ?>
                       </tbody>
@@ -279,6 +300,19 @@ if(isset($_POST['movie_name'])) {
               location.reload();
             }
             
+        });
+      }
+      function addToCustomList(movie_id, movie_name, username, selection){
+        var cusotmData = {movie_name: movie_name, movie_id: movie_id, username: username};
+        $.ajax({
+            url : location.href,
+            type: "POST",
+            data : customData,
+            success: function(response)
+            {
+              alert('Added to Custom Lists');
+              location.reload();
+            }
         });
       }
     </script>
