@@ -73,7 +73,7 @@ if (is_admin() == false) {
         <div class="row">
           <div class="col">
               <table class="table table-bordered table-striped" id="id-table">
-                  <thead class="thead-light">
+                  <thead class="thead-dark">
                       <tr>
                           <th>Rank</th>
                           <th>Movie</th>
