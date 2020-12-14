@@ -1,5 +1,8 @@
 <?php
 
+
+
+
     require '../homepage/config.php';
 
     if(isset($_POST['selectOption'])){
@@ -8,7 +11,7 @@
         $selected_movie_name = $_POST['selected_movie_name'];
         $selected_username = $_POST['selected_username'];
         $custom_type = $_POST['selectOption'];
-        
+
         // $message = "You have selected an option";
         // echo "<script type='text/javascript'>alert('$message');</script>";
 
@@ -19,7 +22,14 @@
         header("location: ../homepage/homepage.php");
         
     }
+
+    else if(isset($_POST['delete'])){
+        $delete_id = $_POST['delete_id'];
+        $con->query("DELETE FROM custom_list WHERE movie_id='$delete_id' ");
+        header("location: ../custom_list/custom-lists.php");
+
+    }
     else{
-        echo "ERROR: Could not add to custom list " . mysqli_error($con);
+        echo "ERROR from custom list" . mysqli_error($con);
     }
   ?>

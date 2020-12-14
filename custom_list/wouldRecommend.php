@@ -64,7 +64,7 @@ $custom_type = "Would Recommend";
     <div class="container">
       <div class="row justify-content-center align-items-center">
           <div class="col-lg-4 col-lg-offset-4">
-           <a href="homepage.php" class="btn btn-dark" >Add More 
+           <a href="../homepage/homepage.php" class="btn btn-dark" >Add More 
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
             </svg>
@@ -244,6 +244,12 @@ $custom_type = "Would Recommend";
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><strong>Rank:</strong> <?php echo $rank ?></li>
                 <li class="list-group-item"><strong>Running time:</strong> <?php echo $running_time ?></li>
+                <li class="list-group-item">
+                <form action="../custom_list/function.php" method="post">
+                  <input type="hidden" name="delete_id" value="<?php echo $movie_id; ?>">
+                  <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"></input>
+                </form>
+                </li>
               </ul>
   
 
