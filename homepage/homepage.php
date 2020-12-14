@@ -254,7 +254,7 @@ if(isset($_POST['movie_name'])) {
                                 </a>
                               </td>
 
-                            <!-- custom list -->
+                            <!-- Custom List -->
                             <td>
                               <form action="../custom_list/function.php" method="post">
                                 <select class="form-select" aria-label="Default select example" name="selectOption" >
@@ -266,7 +266,10 @@ if(isset($_POST['movie_name'])) {
                                 <input type="hidden" name="selected_id" value="<?php echo $id; ?>">
                                 <input type="hidden" name="selected_movie_name" value="<?php echo $movie_name; ?>">
                                 <input type="hidden" name="selected_username" value="<?php echo $username; ?>">
-                                <input type="submit" name="add" value="Add" class="btn btn-info btn-sm">
+                                <br /><br />
+                                <div class="text-center">
+                                  <input type="submit" name="add" value="Add" class="btn btn-info btn-sm" />
+                                </div>
                               </form>
                             </td>
                           </tr>

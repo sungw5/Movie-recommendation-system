@@ -13,7 +13,7 @@ $username = $_SESSION['user']['username'];
 ?>
 
 
-    <html lang="en">
+<html lang="en">
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -59,50 +59,35 @@ $username = $_SESSION['user']['username'];
         </div>
       </nav>
 
-
-
-    <div class="jumbotron">
-      <h1 class="display-4">My Custom Lists</h1>
-    </div>
-    <div class="container">
-      <div class="row justify-content-center align-items-center">
-          <div class="col-lg-4 col-lg-offset-4">
-          </div>
+      <div class="jumbotron">
+        <h1 class="display-4">My Custom Lists</h1>
       </div>
-    </div> 
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card-deck">
+      <div class="row row-cols-3">
+        <div class="col-mb-4">
           <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Will Watch</h5>
-              <p class="card-text">-------------------------------------------------------</p>
-              <li class="nav-item active">
-                <a class="nav-button" href="WillWatch.php">View List<span class="sr-only">(current)</span></a>
-              </li>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
+            <div class="card-body text-center">
               <h5 class="card-title">Watched</h5>
-              <p class="card-text">-------------------------------------------------------</p>
-              <li class="nav-item active">
-                <a class="nav-button" href="watched.php">View List<span class="sr-only">(current)</span></a>
-              </li>
+              <a href="watched.php" class="btn btn-warning" >View List</a>
             </div>
           </div>
+        </div>
+        <div class="col-mb-4">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body text-center">
+              <h5 class="card-title">Will Watch</h5>
+              <a href="will_watch.php" class="btn btn-warning" >View List</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-mb-4">
+          <div class="card">
+            <div class="card-body text-center">
               <h5 class="card-title">Would Recommend</h5>
-              <p class="card-text">-------------------------------------------------------</p>
-              <li class="nav-item active">
-                <a class="nav-button" href="wouldRecommend.php">View List<span class="sr-only">(current)</span></a>
-              </li>
+              <a href="would_recommend.php" class="btn btn-warning" >View List</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>

@@ -1,6 +1,15 @@
 <?php
-  require 'config.php';
-  $username = $_SESSION['user']['username'];
+  require '../homepage/config.php';
+  include('../registration/registration.php');
+?>
+
+<?php
+if (is_logged_in() == false) {
+  header('location:../login/login.html');
+}
+
+$username = $_SESSION['user']['username'];
+$custom_type = "Would Recommend";
 ?>
 
 <!doctype html>
@@ -11,7 +20,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -19,13 +27,13 @@
             <a class="nav-link" href="../homepage/homepage.php">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Favorites <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="../custom_list/custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../homepage/request.php">Request <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <a class="nav-link" href="../profile/profile.php">
@@ -41,13 +49,13 @@
       </div>
     </nav>
     <div class="jumbotron">
-      <h1 class="display-4">Favorites</h1>
+      <h1 class="display-4">Would Recommend</h1>
     </div>
   
     <div class="container">
       <div class="row justify-content-center align-items-center">
           <div class="col-lg-4 col-lg-offset-4">
-           <a href="homepage.php" class="btn btn-dark" >Add More 
+           <a href="../homepage/homepage.php" class="btn btn-dark" >Add More 
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
             </svg>
@@ -59,7 +67,7 @@
     <br /><br />
     <div class="row row-cols-4 row-cols-md-4">
       <?php
-      $fav_results = $con-> query("SELECT movie_id, movie_name FROM user_favorites WHERE username= '".$username."' ORDER BY movie_name");
+      $fav_results = $con-> query("SELECT movie_id, movie_name FROM custom_list WHERE username= '".$username."' AND custom_type = '".$custom_type."' ORDER BY movie_name");
       $count = mysqli_num_rows($fav_results);
       if($count == 0) {} 
       else {
@@ -164,63 +172,14 @@
                       </div>
                     </div>
                   </div>
-                </div>
-  
-                <!-- Display rank, fav_ID, running time -->
-                <div class="modal fade" id="modal_<?php echo $movie_id?>" tabindex="-1" role="dialog" aria-labelledby="modal_<?php echo $movie_id?>" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content modal-lg">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $movie_name; ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <?php
-                          $new_results = $con -> query("SELECT M.running_time, 
-                          C.member_name,
-                          B.market, B.release_date, B.opening, B.gross, 
-                          S.rank,
-                          F.favorite_id
-                          FROM movie_summary M, bo_collections_data B, bo_releases_id R, bo_summary S, movie_crew_data C, user_favorites F
-                          WHERE M.movie_id = '$movie_id' AND
-                          R.release_id = B.release_id AND
-                          R.movie_id = M.movie_id AND
-                          C.movie_id = M.movie_id AND
-                          S.movie_id = M.movie_id AND
-                          F.movie_id = M.movie_id
-                          ORDER BY M.movie_name, B.release_date");
-
-                          while ($row = mysqli_fetch_array($new_results)) {?>
-                            <tr>
-                                <td><?php echo $row["member_name"]; ?></td>
-                                <td><?php echo $row["market"]; ?></td>
-                                <td><?php echo $row["release_date"]; ?></td>
-                                <td><?php echo $row["opening"]; ?></td>
-                                <td><?php echo $row["gross"]; ?></td>
-                            </tr>
-                            <?php $rank = $row["rank"]; ?>
-                            <?php $fav_id = $row["favorite_id"]; ?>
-                            <?php $running_time = $row["running_time"]; ?>
-                          <?php } ?>
-                      </div>
-                      <div class="modal-footer">                      
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>               
+                </div>              
               </div>
-  
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>Rank:</strong> <?php echo $rank ?></li>
-                <li class="list-group-item"><strong>Favorite ID:</strong> <?php echo $fav_id ?></li>
-                <li class="list-group-item"><strong>Running time:</strong> <?php echo $running_time ?></li>
-              </ul>
-  
+              <br />
               <div class="card-footer justify-center">
-                <i class="fa fa-heart" style="color:red" aria-hidden="true"></i>
+                <form action="../custom_list/function.php" method="post">
+                  <input type="hidden" name="delete_id" value="<?php echo $movie_id; ?>">
+                  <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"></input>
+                </form>
               </div>
             </div>
           </div>
