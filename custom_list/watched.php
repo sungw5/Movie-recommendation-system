@@ -208,14 +208,14 @@ $custom_type = "Watched";
                                   C.member_name,
                                   B.market, B.release_date, B.opening, B.gross, 
                                   S.rank,
-                                  F.favorite_id
-                                  FROM movie_summary M, bo_collections_data B, bo_releases_id R, bo_summary S, movie_crew_data C, user_favorites F
+                                  T.custom_id
+                                  FROM movie_summary M, bo_collections_data B, bo_releases_id R, bo_summary S, movie_crew_data C, custom_list T
                                   WHERE M.movie_id = '$movie_id' AND
                                   R.release_id = B.release_id AND
                                   R.movie_id = M.movie_id AND
                                   C.movie_id = M.movie_id AND
                                   S.movie_id = M.movie_id AND
-                                  F.movie_id = M.movie_id
+                                  T.movie_id = M.movie_id
                                   ORDER BY M.movie_name, B.release_date");
   
                                   while ($row = mysqli_fetch_array($new_results)) {?>
