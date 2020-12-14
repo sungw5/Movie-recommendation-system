@@ -43,7 +43,7 @@ $username = $_SESSION['user']['username'];
               <a class="nav-link" href="../custom_list/custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="../homepage/request.php">Request <span class="sr-only">(current)</span></a>
             </li>
           </ul>
           <a class="nav-link" href="../profile/profile.php">
