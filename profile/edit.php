@@ -120,19 +120,19 @@ $user = $_SESSION['user']['username'];
           </div>
           <div class="form-group">
               <label for="req-mpaa">Name</label>
-              <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($name) ?>" />
+              <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($name) ?>" required/>
           </div>
           <div class="form-group">
               <label for="req-duration">Email</label>
-              <input type="text" name="email" class="form-control" value="<?php echo htmlspecialchars($email) ?>" />
+              <input type="text" name="email" class="form-control" value="<?php echo htmlspecialchars($email) ?>" required/>
           </div>
           <div class="form-group">
               <label for="req-release">Phone</label>
-              <input type="text" name="phone" class="form-control" value="<?php echo htmlspecialchars($phone) ?>" />
+              <input type="text" name="phone" class="form-control" value="<?php echo htmlspecialchars($phone) ?>" required/>
           </div>
           <div class="form-group">
               <label for="req-release">Password</label>
-              <input type="password" name="password" class="form-control" value="<?php echo htmlspecialchars($password) ?>" />
+              <input type="password" name="password" class="form-control" value="<?php echo htmlspecialchars($password) ?>" required/>
           </div>
           <div class="form-group row justify-content-center align-items-center">
               <button type="submit" name="submit" class="update-req-btn btn btn-dark">Save Changes</button>
