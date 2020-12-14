@@ -32,7 +32,7 @@ if (is_logged_in() == false) {
             <a class="nav-link" href="favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../custom_list/custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <a class="nav-link" href="../profile/profile.php">
