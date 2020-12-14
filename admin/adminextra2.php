@@ -29,7 +29,7 @@ if (is_admin() == false) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Movies<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="adminhomepage.php">Movies<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="users.php">Users<span class="sr-only">(current)</span></a>
@@ -68,7 +68,7 @@ if (is_admin() == false) {
     </div>
     <div class="container">
         <div class="row justify-content-md-center">
-          <h2>Top 300 Movies <i class="fas fa-film"></i></h2>
+          <h2>Top 600~1000 Movies <i class="fas fa-film"></i></h2>
         </div>
         <div class="row">
           <div class="col">
@@ -90,7 +90,7 @@ if (is_admin() == false) {
                         $results = $con -> query("SELECT M.movie_id, M.movie_name, M.running_time, M.us_distributor, M.mpaa, 
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
-                        WHERE M.movie_id = B.movie_id LIMIT 300");
+                        WHERE M.movie_id = B.movie_id LIMIT 600,400");
                         while ($row = mysqli_fetch_array($results)) {
                           $id = $row['movie_id'];
                           $movie_name = $row['movie_name'];
@@ -261,7 +261,7 @@ if (is_admin() == false) {
                                                   
                                               </div>
                                               <div class="modal-footer">
-                                                  <button type="submit" class="btn btn-info" name="update_item"><span class="fa fa-edit"></span> Save changes</button>
+                                                  <button type="submit" class="btn btn-info" name="update_item3"><span class="fa fa-edit"></span> Save changes</button>
                                                   <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="fa fa-remove-circle"></span> Cancel</button>
                                               </div>
                                           </div>
@@ -284,7 +284,7 @@ if (is_admin() == false) {
                                                   <div class="alert alert-danger">Are you sure you want delete <strong>
                                                           <?php echo $movie_name; ?>?</strong> </div>
                                                   <div class="modal-footer">
-                                                      <button type="submit" name="delete" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
+                                                      <button type="submit" name="delete3" class="btn btn-danger"><span class="fa fa-trash"></span> YES</button>
                                                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-remove-circle"></span> NO</button>
                                                   </div>
                                               </div>
@@ -301,10 +301,15 @@ if (is_admin() == false) {
               </table>
           </div>
         </div>
-
-      <div style="padding: 50px" class="row justify-content-md-center">
-        <a href="adminextra.php">More movies</a>
-      </div>
+        <div style="padding: 50px" class="row justify-content-md-center">
+            <div class="col-md-4">
+                <a href="adminhomepage.php">Back to top 300 movies</a>
+            </div>
+            <div class="col-md-4 offset-md-4">
+                <a href="adminextra.php">Top 300-600 movies </a>
+            </div>
+            
+        </div>
     </div>
 
     <script defer type="text/javascript">

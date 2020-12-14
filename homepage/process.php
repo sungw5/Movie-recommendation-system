@@ -16,7 +16,7 @@ if(isset($_POST['submit'])) {
     $search = "SELECT 1 FROM movie_recommendation_db LIMIT 1";
     $is_table_exists = mysqli_query($con, $search);
 
-    $check = "SELECT movie_name FROM movie_summary WHERE movie_name='$movie_name'";
+    $check = "SELECT * FROM movie_summary WHERE movie_name='$movie_name' LIMIT 1";
     $result = mysqli_query($con, $check);
     $count = mysqli_num_rows($result);
 

@@ -27,20 +27,14 @@
         $movie_name = $row['movie_name'];
         $mpaa = $row['mpaa'];
         $running_time = $row['running_time'];
-
-
-        $is_data_exists = $con->query("SELECT * FROM movie_summary WHERE movie_id='$id' LIMIT 1") or die($con->error());
-        $count = mysqli_num_rows($is_data_exists);
-        
-        if($count == 1){
-            echo "Requesting movie data already exists in movie_summary";
+        $year = $row['release_date'];
+        try {
+            $con->query("INSERT INTO movie_summary (movie_id, movie_name, mpaa, running_time) VALUES('$id', '$movie_name', '$mpaa', '$running_time');");
+            $con->query("INSERT INTO bo_summary (movie_name, year, movie_id) VALUES('$movie_name', '$year', '$id');");
+            $con->query("DELETE FROM movie_recommendation_db WHERE id=$id");
+        } catch (mysqli_sql_exception $e) {
+            die("Could not execute accept operation :" . $e->getMessage());
         }
-        else{
-            $insert = $con->query("INSERT INTO movie_summary (movie_id, movie_name, mpaa, running_time) VALUES('$id', '$movie_name', '$mpaa', '$running_time');") or die($con->error());
-            $con->query("DELETE FROM movie_recommendation_db WHERE id=$id") or die($con->error());
-        }
-
-
         header("location: review_request.php");
         $con->commit();
     }

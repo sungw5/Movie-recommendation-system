@@ -37,7 +37,7 @@ $user = $_SESSION['user']['username'];
             <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../custom_list/custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="../homepage/request.php">Request <span class="sr-only">(current)</span></a>
@@ -136,7 +136,9 @@ $user = $_SESSION['user']['username'];
           <div class="form-group row justify-content-center align-items-center">
               <button type="submit" name="submit" class="update-req-btn btn btn-dark">Update</button>
           </div> 
-        </form>  
+        </form>
+        <div style="padding: 30px" class="row justify-content-md-center">
+        </div>
       </div>
     </div>
     <script type="text/javascript">

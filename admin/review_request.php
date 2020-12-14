@@ -99,6 +99,8 @@ if (is_admin() == false) {
               </table>
             </div>
         </div>
+      <div style="padding: 40px" class="row justify-content-md-center">
+      </div>
     </div>
     
     <script type="text/javascript">

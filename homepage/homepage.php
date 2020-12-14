@@ -41,6 +41,8 @@ if(isset($_POST['movie_name'])) {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+    
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -53,7 +55,7 @@ if(isset($_POST['movie_name'])) {
             <a class="nav-link" href="../homepage/favorites.php">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../custom_list/custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
@@ -88,6 +90,9 @@ if(isset($_POST['movie_name'])) {
       </h1>
     </div>
     <div class="container">
+        <div class="row justify-content-md-center">
+          <h2>Top 300 Movies <i class="fas fa-film"></i></h2>
+        </div>
         <div class="row">
           <div class="col">
               <table class="table table-striped" id="id-table">
@@ -102,14 +107,22 @@ if(isset($_POST['movie_name'])) {
                           <th>Crew</th>
                           <th>Box Office Data</th>
                           <th>Favorite</th>
+                          <th>Add To</th>
                       </tr>
                       <tbody>
                       <?php
                         $results = $con -> query("SELECT M.movie_id, M.movie_name, M.running_time, M.us_distributor, M.mpaa, 
                         B.rank, B.lifetime_gross 
                         FROM movie_summary M, bo_summary B
-                        WHERE M.movie_id = B.movie_id");
-                        while ($row = mysqli_fetch_array($results)) {?>
+                        WHERE M.movie_id = B.movie_id LIMIT 300");
+                        while ($row = mysqli_fetch_array($results)) {
+                          $id = $row['movie_id'];
+                          $movie_name = $row['movie_name'];
+                          $us_distributor = $row['us_distributor'];
+                          $running_time = $row['running_time'];
+                          $lifetime_gross = $row['lifetime_gross'];
+                          $mpaa = $row['mpaa'];
+                          ?>
                           <tr>
                               <td><?php echo $row["rank"]; ?></td>
                               <td><?php echo $row["movie_name"]; ?></td>
@@ -240,6 +253,22 @@ if(isset($_POST['movie_name'])) {
                                   </svg>
                                 </a>
                               </td>
+
+                            <!-- custom list -->
+                            <td>
+                              <form action="../custom_list/function.php" method="post">
+                                <select class="form-select" aria-label="Default select example" name="selectOption" >
+                                  <option value="Add To" disabled selected>Add To</option>
+                                  <option value="Watched">Watched</option>
+                                  <option value="Will Watch">Will Watch</option>
+                                  <option value="Would Recommend">Would Recommend</option>
+                                </select> 
+                                <input type="hidden" name="selected_id" value="<?php echo $id; ?>">
+                                <input type="hidden" name="selected_movie_name" value="<?php echo $movie_name; ?>">
+                                <input type="hidden" name="selected_username" value="<?php echo $username; ?>">
+                                <input type="submit" name="add" value="Add" class="btn btn-info btn-sm">
+                              </form>
+                            </td>
                           </tr>
                         <?php } ?>
                       </tbody>
@@ -247,9 +276,15 @@ if(isset($_POST['movie_name'])) {
               </table>
           </div>
         </div>
+
+      <div style="padding: 50px" class="row justify-content-md-center">
+        <a href="extra.php">More movies</a>
+      </div>
     </div>
 
-    <script type="text/javascript">
+    
+
+    <script defer type="text/javascript">
       $(document).ready(function () {
         $("#id-table").DataTable();
       });
