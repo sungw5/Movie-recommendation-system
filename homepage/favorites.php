@@ -22,7 +22,7 @@
             <a class="nav-link" href="#">Favorites <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Lists <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../custom_list/custom-lists.php">My Lists <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="request.php">Request <span class="sr-only">(current)</span></a>
