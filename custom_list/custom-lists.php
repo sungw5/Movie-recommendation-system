@@ -81,9 +81,6 @@ $username = $_SESSION['user']['username'];
                 <a class="nav-button" href="WillWatch.php">View List<span class="sr-only">(current)</span></a>
               </li>
             </div>
-            <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
           </div>
           <div class="card">
             <div class="card-body">
@@ -93,9 +90,6 @@ $username = $_SESSION['user']['username'];
                 <a class="nav-button" href="watched.php">View List<span class="sr-only">(current)</span></a>
               </li>
             </div>
-            <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
           </div>
           <div class="card">
             <div class="card-body">
@@ -104,9 +98,6 @@ $username = $_SESSION['user']['username'];
               <li class="nav-item active">
                 <a class="nav-button" href="wouldRecommend.php">View List<span class="sr-only">(current)</span></a>
               </li>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
             </div>
           </div>
         </div>
