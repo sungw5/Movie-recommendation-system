@@ -19,5 +19,9 @@
   } catch (mysqli_sql_exception $e) {
     die("Could not connect to the database $db :" . $e->getMessage());
   }
+<<<<<<< HEAD
   
 ?>
+=======
+?>
+>>>>>>> 1a1b07f732780fbf7ffe11a51cc06ca0b535f2f5
