@@ -1,5 +1,7 @@
 # CMPSC 431W Movie Recommendation System 
 
+#### *Disclaimer: This work is strictly for personal use. If you are a CMPSC 431W student, you are solely responsible for any kind of plagiarism.*
+
 ### To run on localhost
 Use code from branch `main` and navigate to [here](http://localhost/cmpsc431w-movie-recommendation-system/login/login.html)
 
