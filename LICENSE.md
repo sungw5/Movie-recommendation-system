@@ -1,10 +1,6 @@
 MIT License
 
-Copyright (c) 2020 Shashwat Shekhar
-Copyright (c) 2020 Sung Woo Oh
-Copyright (c) 2020 Naman Malviya
-Copyright (c) 2020 Nathan Rogers
-Copyright (c) 2020 Mingda Cai
+Copyright (c) 2020 Shashwat Shekhar, Sung Woo Oh, Naman Malviya, Nathan Rogers, Mingda Cai
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
